@@ -1,0 +1,95 @@
+---
+title: "실험계획법 (DOE)"
+---
+
+## 2수준 완전 요인 배치 (Full Factorial)
+
+k개 인자를 각각 2수준(-1, +1)에서 모든 조합으로 실험
+
+**실험 수**: 2^k (k=3이면 8회)
+
+### 코딩 규칙
+
+| 수준 | 코드 | 의미 |
+|------|------|------|
+| 저수준 | -1 | 인자의 낮은 설정값 |
+| 고수준 | +1 | 인자의 높은 설정값 |
+
+### 효과 추정
+
+$$\text{주효과}_A = \frac{\text{A가 +1일 때 Y 평균} - \text{A가 -1일 때 Y 평균}}{1}$$
+
+::: {.callout-tip title="주효과 vs 교호작용" collapse="true"}
+**주효과**: 한 인자의 평균적인 효과 (다른 인자와 무관)
+
+**교호작용**: 두 인자가 함께 만들어내는 추가 효과
+
+**교호작용 플롯**: 두 선이 평행 → 교호작용 없음 / 두 선이 교차 → 강한 교호작용
+
+**추천 영상**: [Minitab Blog - Interaction Plots](https://blog.minitab.com/en/adventures-in-statistics-2/understanding-interaction-effects-in-statistics)
+:::
+
+## 2수준 부분 요인 배치 (Fractional Factorial)
+
+많은 인자를 적은 실험 수로 스크리닝
+
+**실험 수**: 2^(k-p), p는 생략 인자 수
+
+### Resolution (해상도) 개념
+
+::: {.callout-tip title="Resolution III/IV/V 차이" collapse="true"}
+| Resolution | 주효과 혼동 | 2인자 교호작용 혼동 |
+|-----------|------------|-------------------|
+| **III** | 2인자 교호작용과 혼동 | - |
+| **IV** | 혼동 없음 | 2인자 교호작용끼리 혼동 |
+| **V** | 혼동 없음 | 3인자 교호작용과 혼동 |
+
+**스크리닝**: Resolution III (실험 수 최소)
+**주효과 확인**: Resolution IV
+**교호작용 분석**: Resolution V 이상
+:::
+
+## 반응표면법 (RSM - Response Surface Methodology)
+
+최적 조건을 정량적으로 탐색하는 방법
+
+### 중심합성설계 (Central Composite Design, CCD)
+
+2수준 완전배치 + 성형점(Axial) + 중심점으로 구성
+
+```
+설계 구조:
+- Corner points: ±1 (2^k)
+- Axial points: ±α (2k개)
+- Center points: 0 (반복 추정용)
+```
+
+### 2차 반응표면 모형
+
+$$Y = \beta_0 + \sum \beta_i X_i + \sum \beta_{ii} X_i^2 + \sum \beta_{ij} X_i X_j + \epsilon$$
+
+### 최적화
+
+- **최대화**: 반응면 꼭대기 탐색
+- **최소화**: 반응면 바닥 탐색
+- **타겟**: 등고선 플롯에서 목표값 범위 탐색
+
+---
+
+## 실습: DOE 분석 도구
+
+<div class="streamlit-embed">
+<iframe
+  src="https://app-doe.streamlit.app/?embedded=true"
+  height="750"
+  width="100%"
+  frameborder="0">
+</iframe>
+</div>
+
+::: {.callout-note title="실습 도구 기능"}
+- **실험 설계 생성**: 인자 수, 수준 입력 → 설계 행렬 자동 생성
+- **데이터 입력**: 반응값 입력
+- **효과 분석**: 주효과 플롯, 교호작용 플롯, Pareto 차트
+- **RSM**: 3D 반응표면, 등고선 플롯, 최적 조건 탐색
+:::

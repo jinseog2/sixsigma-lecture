@@ -1,0 +1,70 @@
+---
+title: "분산분석 (ANOVA)"
+---
+
+## ANOVA 개요
+
+**분산분석(Analysis of Variance, ANOVA)** 은 3개 이상 집단의 평균을 동시에 비교하는 통계 기법입니다.
+
+$$H_0: \mu_1 = \mu_2 = \mu_3 = \cdots = \mu_k$$
+$$H_1: \text{적어도 하나의 집단 평균이 다르다}$$
+
+::: {.callout-tip title="ANOVA 원리" collapse="true"}
+**핵심 아이디어**: 전체 변동을 "집단 간 변동"과 "집단 내 변동"으로 분해
+
+$$SS_{Total} = SS_{Between} + SS_{Within}$$
+
+F = 집단 간 평균 제곱(MS_Between) / 집단 내 평균 제곱(MS_Within)
+
+F값이 크면 집단 간 차이가 유의미하다는 증거
+
+**추천 영상**: [StatQuest - ANOVA](https://www.youtube.com/watch?v=oOuu8IBd-yo)
+:::
+
+## One-Way ANOVA
+
+하나의 인자(Factor)가 반응변수에 미치는 영향 분석
+
+### ANOVA 테이블
+
+| 출처 | SS | df | MS | F | p-value |
+|------|-----|-----|-----|---|---------|
+| 인자 | SS_A | k-1 | MS_A | F | p |
+| 오차 | SS_E | N-k | MS_E | | |
+| 합계 | SS_T | N-1 | | | |
+
+### 가정 사항
+
+1. **독립성**: 각 관측값은 독립
+2. **정규성**: 각 집단의 데이터가 정규분포
+3. **등분산성**: 모든 집단의 분산이 동일
+
+## 사후 검정 (Post-Hoc Test)
+
+ANOVA에서 H₀이 기각되면, 어느 집단 쌍이 다른지 파악하기 위해 사후 검정 실시
+
+| 방법 | 특징 |
+|------|------|
+| Tukey HSD | 등분산, 등표본수 가정 시 권장 |
+| Bonferroni | 보수적, 소수의 비교에 적합 |
+| Games-Howell | 등분산 가정 불필요 |
+
+## GLM (General Linear Model)
+
+One-Way ANOVA의 확장. 여러 인자와 공변량을 동시에 분석
+
+- **균형 설계**: 모든 처리 조합에 동일한 반복 수
+- **불균형 설계**: 처리 조합별 반복 수 상이 → GLM 필요
+
+---
+
+## 실습: ANOVA 분석 도구
+
+<div class="streamlit-embed">
+<iframe
+  src="https://app-anova.streamlit.app/?embedded=true"
+  height="700"
+  width="100%"
+  frameborder="0">
+</iframe>
+</div>

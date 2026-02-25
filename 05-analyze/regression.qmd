@@ -1,0 +1,98 @@
+---
+title: "회귀분석"
+---
+
+## 회귀분석 개요
+
+회귀분석은 독립변수(X)와 종속변수(Y) 사이의 관계를 수식으로 모델링합니다.
+
+$$Y = \beta_0 + \beta_1 X_1 + \beta_2 X_2 + \cdots + \beta_k X_k + \epsilon$$
+
+## 상관분석
+
+회귀분석 전에 변수 간 선형 관계의 강도와 방향을 파악합니다.
+
+**피어슨 상관계수 (r)**:
+
+$$r = \frac{\sum(x_i - \bar{x})(y_i - \bar{y})}{\sqrt{\sum(x_i - \bar{x})^2 \sum(y_i - \bar{y})^2}}$$
+
+| |r| | 해석 |
+|-----|------|
+| 0.9 ~ 1.0 | 매우 강한 상관 |
+| 0.7 ~ 0.9 | 강한 상관 |
+| 0.5 ~ 0.7 | 보통 상관 |
+| 0.3 ~ 0.5 | 약한 상관 |
+| 0 ~ 0.3 | 거의 없음 |
+
+## 단순 선형 회귀
+
+$$\hat{Y} = b_0 + b_1 X$$
+
+### 최소제곱법 (OLS)
+
+$$b_1 = \frac{\sum(x_i - \bar{x})(y_i - \bar{y})}{\sum(x_i - \bar{x})^2}, \quad b_0 = \bar{y} - b_1\bar{x}$$
+
+### 모형 적합도
+
+- **R²**: 회귀모형이 설명하는 분산의 비율 (0~1, 1에 가까울수록 좋음)
+- **Adjusted R²**: 변수 수를 고려한 R² (다중회귀에서 사용)
+- **RMSE**: 잔차의 표준편차
+
+::: {.callout-tip title="R² 해석 주의사항" collapse="true"}
+R² = 0.8이라고 "좋은 모델"이라 단정할 수 없습니다.
+
+- 데이터의 성격에 따라 R² 기준이 다름 (사회과학 < 공학 < 물리)
+- R²이 높아도 잔차 패턴이 있으면 모델 가정 위반
+- 항상 **잔차 분석**을 병행하세요
+
+**추천 영상**: [StatQuest - R-squared](https://www.youtube.com/watch?v=2AQKmw14mHM)
+:::
+
+## 다중 선형 회귀
+
+여러 독립변수를 포함한 회귀 모형
+
+### 다중공선성 (Multicollinearity)
+
+독립변수 간 강한 상관이 있을 때 발생하는 문제
+
+**VIF (분산팽창인수)**:
+
+$$VIF_j = \frac{1}{1 - R_j^2}$$
+
+::: {.callout-tip title="VIF 해석" collapse="true"}
+| VIF | 판정 |
+|-----|------|
+| < 5 | 문제없음 |
+| 5 ~ 10 | 주의 |
+| > 10 | 다중공선성 문제 있음 |
+
+**해결 방법**: 상관된 변수 중 하나 제거, PCA, Ridge 회귀
+:::
+
+### 변수 선택 (Stepwise)
+
+- **Forward Selection**: 변수를 하나씩 추가
+- **Backward Elimination**: 변수를 하나씩 제거
+- **Stepwise**: Forward + Backward 혼합
+
+### 잔차 분석
+
+회귀 가정 확인을 위한 4가지 잔차 플롯:
+1. **Normal Plot**: 정규성 확인
+2. **잔차 vs 적합값**: 등분산성, 선형성 확인
+3. **잔차 순서도**: 독립성 확인
+4. **레버리지 플롯**: 이상점 확인
+
+---
+
+## 실습: 회귀분석 도구
+
+<div class="streamlit-embed">
+<iframe
+  src="https://app-regression.streamlit.app/?embedded=true"
+  height="700"
+  width="100%"
+  frameborder="0">
+</iframe>
+</div>

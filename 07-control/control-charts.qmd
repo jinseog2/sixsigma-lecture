@@ -1,0 +1,107 @@
+---
+title: "관리도 (Control Charts)"
+---
+
+## 관리도 원리
+
+관리도는 공정 데이터의 시계열 플롯 + 관리한계선으로 구성됩니다.
+
+**관리한계**:
+$$UCL = \bar{X} + 3\sigma, \quad LCL = \bar{X} - 3\sigma$$
+
+::: {.callout-tip title="관리한계 계산 원리" collapse="true"}
+±3σ를 관리한계로 사용하는 이유:
+- 정규분포에서 ±3σ 내에 99.73%의 데이터가 포함
+- 관리 상태에서 한계 밖으로 나올 확률 = 0.27% (false alarm 최소화)
+- Walter Shewhart가 실용적인 균형점으로 제안
+
+**참고**: [ASQ - Control Charts](https://asq.org/quality-resources/control-chart)
+:::
+
+## Western Electric 규칙 (이상 패턴 8가지)
+
+::: {.callout-tip title="이상패턴 8가지 룰의 통계적 의미" collapse="true"}
+모든 규칙은 관리 상태에서 발생 확률이 극히 낮은 패턴을 탐지합니다.
+
+| 규칙 | 패턴 | 통계적 의미 |
+|------|------|------------|
+| 1 | 관리한계 이탈 1점 | P = 0.27% |
+| 2 | Zone A 이상에서 연속 2/3점 | P < 1% |
+| 3 | Zone B 이상에서 연속 4/5점 | P < 2% |
+| 4 | 중심선 같은 쪽 연속 8점 | P = 0.39% |
+| 5 | 연속 6점 증가/감소 추세 | P < 1% |
+| 6 | 연속 14점 교대 증감 | P < 1% |
+| 7 | 연속 15점 Zone C 내 | 분산 감소? |
+| 8 | 연속 8점 Zone C 밖 | 혼합 분포? |
+
+**참고**: [NIST e-Handbook - Western Electric Rules](https://www.itl.nist.gov/div898/handbook/)
+:::
+
+## Xbar-R 관리도
+
+계량형 데이터, 부분군 크기 2 ≤ n ≤ 9
+
+**Xbar 관리도**:
+$$UCL = \bar{\bar{X}} + A_2\bar{R}, \quad LCL = \bar{\bar{X}} - A_2\bar{R}$$
+
+**R 관리도**:
+$$UCL = D_4\bar{R}, \quad LCL = D_3\bar{R}$$
+
+관리 계수 (n에 따라 결정): A₂, D₃, D₄
+
+## I-MR 관리도
+
+계량형 데이터, 부분군 크기 n = 1 (개별 측정)
+
+**I 관리도** (개별값):
+$$UCL = \bar{X} + 3\frac{\overline{MR}}{1.128}, \quad LCL = \bar{X} - 3\frac{\overline{MR}}{1.128}$$
+
+**MR 관리도** (이동 범위):
+$$UCL = D_4 \overline{MR} = 3.267\overline{MR}$$
+
+## P 관리도
+
+불량률 관리도 (부분군 크기 상이)
+
+$$p_i = \frac{d_i}{n_i}$$
+
+$$UCL_i = \bar{p} + 3\sqrt{\frac{\bar{p}(1-\bar{p})}{n_i}}$$
+
+## NP 관리도
+
+불량 개수 관리도 (부분군 크기 일정)
+
+$$UCL = n\bar{p} + 3\sqrt{n\bar{p}(1-\bar{p})}$$
+
+## C 관리도
+
+결점 수 관리도 (검사 단위 일정)
+
+$$UCL = \bar{c} + 3\sqrt{\bar{c}}$$
+
+## U 관리도
+
+단위당 결점 수 관리도 (검사 단위 상이)
+
+$$u_i = \frac{c_i}{n_i}, \quad UCL_i = \bar{u} + 3\sqrt{\frac{\bar{u}}{n_i}}$$
+
+---
+
+## 실습: 관리도 분석 도구
+
+<div class="streamlit-embed">
+<iframe
+  src="https://app-control-chart.streamlit.app/?embedded=true"
+  height="750"
+  width="100%"
+  frameborder="0">
+</iframe>
+</div>
+
+::: {.callout-note title="실습 도구 기능"}
+- **관리도 유형 선택**: Xbar-R, I-MR, P, NP, C, U
+- **데이터 입력**: 직접 입력 또는 CSV 업로드
+- **관리한계 계산**: 자동 계산 또는 수동 입력
+- **이상 패턴 탐지**: Western Electric 규칙 적용
+- **관리 상태 판정**: 이상점 및 패턴 하이라이팅
+:::

@@ -1,0 +1,102 @@
+---
+title: "가설검정"
+---
+
+## 가설검정 기초
+
+### 귀무가설과 대립가설
+
+| | 내용 |
+|-|------|
+| **귀무가설 (H₀)** | "차이가 없다" / "현상 유지" |
+| **대립가설 (H₁)** | "차이가 있다" / "변화 있음" |
+
+### 오류의 종류
+
+| | H₀이 참 | H₀이 거짓 |
+|-|---------|----------|
+| **H₀ 채택** | 올바른 결정 | 2종 오류 (β) |
+| **H₀ 기각** | 1종 오류 (α) | 올바른 결정 |
+
+::: {.callout-tip title="1종/2종 오류 직관" collapse="true"}
+**비유**: 재판에서의 판결
+
+- **1종 오류 (α, False Positive)**: 무죄인 사람을 유죄로 판결 → 심각한 오류
+- **2종 오류 (β, False Negative)**: 유죄인 사람을 무죄로 석방 → 놓친 오류
+
+6시그마에서 α = 0.05 (5%)를 기본값으로 사용합니다.
+
+**추천 영상**: [StatQuest - Statistical Power](https://www.youtube.com/watch?v=Rsc5znwR5FA)
+:::
+
+## 정규성 검정 (Anderson-Darling)
+
+**H₀**: 데이터가 정규분포를 따른다
+**H₁**: 데이터가 정규분포를 따르지 않는다
+
+- p > 0.05: 정규성 가정 채택
+- p ≤ 0.05: 정규분포 아님 → 비모수 검정 고려
+
+## 1-Sample t Test
+
+모집단 평균 μ가 특정 목표값 μ₀와 같은지 검정
+
+$$t = \frac{\bar{X} - \mu_0}{s / \sqrt{n}}$$
+
+**H₀**: μ = μ₀
+**H₁**: μ ≠ μ₀ (또는 <, >)
+
+## 2-Sample t Test
+
+두 독립 그룹의 모집단 평균이 같은지 검정
+
+$$t = \frac{\bar{X}_1 - \bar{X}_2}{\sqrt{s_p^2(1/n_1 + 1/n_2)}}$$
+
+::: {.callout-tip title="2-Sample t Test 직관" collapse="true"}
+**핵심 질문**: "두 그룹의 평균 차이가 우연인가, 진짜 차이인가?"
+
+t 통계량이 클수록 → 평균 차이가 표본 변동성에 비해 크다 → 진짜 차이일 가능성 높음
+
+**추천 영상**: [StatQuest - t-tests](https://www.youtube.com/watch?v=0Pd3dc1GcHc)
+:::
+
+## 등분산 검정 (Levene's Test)
+
+두 그룹 이상의 분산이 같은지 검정
+
+**H₀**: 모든 그룹의 분산이 같다 (σ₁² = σ₂² = ...)
+**H₁**: 적어도 하나의 그룹 분산이 다르다
+
+::: {.callout-tip title="등분산 가정의 의미" collapse="true"}
+2-Sample t Test에서 두 그룹의 분산이 같다고 가정하면 더 강력한 검정(Pooled t Test)이 가능합니다.
+
+- **등분산 O**: Pooled t Test 사용 (자유도 높음, 검정력 강함)
+- **등분산 X**: Welch's t Test 사용 (더 보수적)
+
+Minitab에서 p(등분산) > 0.05이면 Pooled 방법을 선택하세요.
+:::
+
+## Paired t Test
+
+짝지어진 두 측정값의 차이 검정 (Before/After, 동일 부품 두 측정자)
+
+$$t = \frac{\bar{d}}{s_d / \sqrt{n}}$$
+
+## 카이제곱 검정
+
+범주형 변수 간의 연관성 검정
+
+$$\chi^2 = \sum \frac{(O - E)^2}{E}$$
+
+---
+
+## 실습: 가설검정 도구
+
+<div class="streamlit-embed">
+<iframe
+  src="https://app-ttest.streamlit.app/?embedded=true"
+  height="700"
+  width="100%"
+  frameborder="0">
+</iframe>
+</div>

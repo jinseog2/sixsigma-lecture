@@ -1,0 +1,97 @@
+---
+title: "Gage R&R - 측정시스템 분석"
+---
+
+## Gage R&R이란?
+
+**Gage Repeatability & Reproducibility (R&R)** 은 측정시스템의 변동을 정량화하는 분석입니다.
+
+$$\text{측정 총 변동} = \text{부품 변동} + \text{측정시스템 변동(Gage R\&R)}$$
+
+$$\text{Gage R\&R} = \text{반복성(Repeatability)} + \text{재현성(Reproducibility)}$$
+
+## 변동 구성 요소
+
+| 구성요소 | 영문 | 설명 |
+|---------|------|------|
+| 반복성 | Repeatability | 동일 측정자, 동일 부품 반복 측정 변동 (장비 변동) |
+| 재현성 | Reproducibility | 다른 측정자 간 변동 (측정자 변동) |
+| 부품 변동 | Part Variation | 부품 간 실제 차이 |
+
+## 판정 기준 (%R&R)
+
+| %R&R | 판정 |
+|------|------|
+| < 10% | 우수 (Excellent) |
+| 10% ~ 30% | 조건부 수용 (Marginal) |
+| > 30% | 부적합 (Unacceptable) |
+
+::: {.callout-tip title="%R&R 판정기준의 의미" collapse="true"}
+**핵심 질문**: 전체 측정 변동 중 측정시스템 자체의 변동이 얼마나 되는가?
+
+- **%R&R = 5%**: 측정 변동의 5%만 측정기 때문 → 신뢰할 수 있음
+- **%R&R = 35%**: 측정 변동의 35%가 측정기 때문 → 측정기 개선 필요
+
+**비유**: 체중계가 매번 ±3kg 오차가 있다면, 다이어트 효과(1kg 감량)를 측정할 수 없습니다.
+:::
+
+## Type 1 Gage Study
+
+단일 측정자, 기준값(Reference)이 있는 경우의 기본 능력 평가
+
+**지표**:
+- **Cg**: 게이지 능력 지수 (≥ 1.33 권장)
+- **Cgk**: 편의(Bias) 포함 능력 지수 (≥ 1.33 권장)
+- **편의(Bias)**: 측정값 평균 - 기준값
+
+## Type 2 Gage Study - Crossed
+
+가장 일반적인 Gage R&R. 여러 측정자가 여러 부품을 모두 측정합니다.
+
+**실험 설계**:
+- **부품 수**: 보통 10개
+- **측정자 수**: 보통 3명
+- **반복 측정 수**: 보통 2~3회
+
+## Type 2 Gage Study - Nested
+
+측정자가 각자 다른 부품 세트를 측정하는 경우 (부품 파괴 검사 등)
+
+## 이산형 Gage R&R (Attribute Agreement Analysis)
+
+합격/불합격 같은 이산형 판정의 일관성 평가
+
+**지표**:
+- 측정자 내 일치율 (Within Appraiser Agreement)
+- 측정자 간 일치율 (Between Appraisers Agreement)
+- 기준 대비 일치율 (Each Appraiser vs Standard)
+
+---
+
+## 실습: Gage R&R 분석 도구
+
+::: {.callout-note title="실습 도구 사용법"}
+1. 왼쪽 사이드바에서 분석 유형 선택 (Type 1 / Type 2 Crossed / Nested / 이산형)
+2. 데이터 선택 또는 CSV 업로드
+3. 변수 매핑 (부품, 측정자, 측정값 컬럼)
+4. **▶ 분석 실행** 클릭
+:::
+
+<div class="streamlit-embed">
+<iframe
+  src="https://app-gage-rr.streamlit.app/?embedded=true"
+  height="700"
+  width="100%"
+  frameborder="0">
+</iframe>
+</div>
+
+::: {.callout-tip title="결과 해석 가이드"}
+**ANOVA 결과 테이블**: 각 변동 원인의 분산 성분과 기여율을 보여줍니다.
+
+**%Contribution**: 총 변동 대비 각 성분의 기여율 (분산 기준)
+
+**%Study Var**: 총 변동 대비 각 성분의 기여율 (표준편차 기준, Minitab 기본값)
+
+**ndc (Number of Distinct Categories)**: 측정시스템이 구분할 수 있는 카테고리 수 (≥ 5 권장)
+:::

@@ -1,0 +1,91 @@
+---
+title: "공정능력분석"
+---
+
+## 공정능력이란?
+
+공정이 규격 내에서 얼마나 일관되게 제품을 생산할 수 있는지를 나타내는 지표입니다.
+
+## 공정능력 지수
+
+### 단기 능력 (Cp, Cpk) - Within 변동 기반
+
+$$C_p = \frac{USL - LSL}{6\sigma_{within}}$$
+
+$$C_{pk} = \min\left(\frac{USL - \bar{X}}{3\sigma_{within}}, \frac{\bar{X} - LSL}{3\sigma_{within}}\right)$$
+
+### 장기 능력 (Pp, Ppk) - Overall 변동 기반
+
+$$P_p = \frac{USL - LSL}{6\sigma_{overall}}$$
+
+$$P_{pk} = \min\left(\frac{USL - \bar{X}}{3\sigma_{overall}}, \frac{\bar{X} - LSL}{3\sigma_{overall}}\right)$$
+
+::: {.callout-tip title="Cpk vs Ppk 차이" collapse="true"}
+**핵심 차이**: 사용하는 표준편차의 종류
+
+| | Cp/Cpk | Pp/Ppk |
+|-|--------|--------|
+| 표준편차 | Within (단기, Rbar/d2) | Overall (전체 표준편차) |
+| 의미 | 공정의 **잠재** 능력 | 공정의 **실제** 성과 |
+| 관리도 | 관리상태 가정 | 가정 없음 |
+
+**비유**:
+- Cpk = 최상의 날씨에서 차의 최고 속도 (잠재 능력)
+- Ppk = 일년 동안 평균 주행 속도 (실제 성과)
+
+Cp/Pp의 차이가 크면 공정에 특수원인이 존재한다는 신호입니다.
+:::
+
+## 판정 기준
+
+| 지수 | 기준값 | 판정 |
+|------|--------|------|
+| Cpk ≥ 1.67 | 6시그마 수준 | 우수 |
+| Cpk ≥ 1.33 | 4시그마 수준 | 양호 |
+| Cpk ≥ 1.00 | 3시그마 수준 | 최소 허용 |
+| Cpk < 1.00 | 3시그마 미만 | 개선 필요 |
+
+## Z값 (시그마 수준)
+
+$$Z_{st} = C_{pk} \times 3 \quad \text{(단기 시그마 수준)}$$
+
+$$Z_{lt} = Z_{st} - 1.5 \quad \text{(장기 시그마 수준, 1.5σ shift 반영)}$$
+
+::: {.callout-tip title="Z값과 불량률 관계" collapse="true"}
+**Z값** = 규격 한계까지 표준편차 단위의 거리
+
+| Zst | Zlt | PPM |
+|-----|-----|-----|
+| 6.0 | 4.5 | 3.4 |
+| 5.0 | 3.5 | 233 |
+| 4.0 | 2.5 | 6,210 |
+| 3.0 | 1.5 | 66,807 |
+
+**계산**: 불량률 = P(Z < -Zpk) + P(Z > Zpk) = 2 × Φ(-|Zpk|)
+:::
+
+## 비정규 공정능력분석
+
+데이터가 정규분포를 따르지 않는 경우:
+- 데이터 변환 (Box-Cox, Johnson)
+- 비모수적 방법 (백분위수 기반)
+
+---
+
+## 실습: 공정능력분석 도구
+
+<div class="streamlit-embed">
+<iframe
+  src="https://app-capability.streamlit.app/?embedded=true"
+  height="700"
+  width="100%"
+  frameborder="0">
+</iframe>
+</div>
+
+::: {.callout-note title="실습 도구 사용법"}
+1. 데이터 입력 (직접 입력 또는 CSV 업로드)
+2. USL/LSL 규격 입력
+3. 정규성 검정 결과 확인
+4. **▶ 분석 실행** → 공정능력 지수 및 히스토그램 확인
+:::

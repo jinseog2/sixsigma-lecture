@@ -1,0 +1,80 @@
+project:
+  type: website
+  output-dir: _site
+
+website:
+  title: "6시그마 MBB 강의"
+  navbar:
+    left:
+      - href: index.qmd
+        text: 홈
+      - href: 01-intro.qmd
+        text: 소개
+      - href: 02-6sigma-abc.qmd
+        text: 6σABC
+      - href: 03-define.qmd
+        text: Define
+      - href: 04-measure/index.qmd
+        text: Measure
+      - href: 05-analyze/index.qmd
+        text: Analyze
+      - href: 06-improve/index.qmd
+        text: Improve
+      - href: 07-control/index.qmd
+        text: Control
+  sidebar:
+    style: "docked"
+    search: true
+    contents:
+      - section: "소개"
+        contents:
+          - href: 01-intro.qmd
+            text: 과정 소개
+          - href: 02-6sigma-abc.qmd
+            text: 6σ ABC
+          - href: 03-define.qmd
+            text: Define
+      - section: "Measure"
+        contents:
+          - href: 04-measure/index.qmd
+            text: 개요
+          - href: 04-measure/gage-rr.qmd
+            text: Gage R&R
+          - href: 04-measure/capability.qmd
+            text: 공정능력분석
+      - section: "Analyze"
+        contents:
+          - href: 05-analyze/index.qmd
+            text: 개요
+          - href: 05-analyze/hypothesis.qmd
+            text: 가설검정
+          - href: 05-analyze/anova.qmd
+            text: ANOVA
+          - href: 05-analyze/regression.qmd
+            text: 회귀분석
+      - section: "Improve"
+        contents:
+          - href: 06-improve/index.qmd
+            text: 개요
+          - href: 06-improve/doe.qmd
+            text: 실험계획법(DOE)
+      - section: "Control"
+        contents:
+          - href: 07-control/index.qmd
+            text: 개요
+          - href: 07-control/control-charts.qmd
+            text: 관리도
+
+format:
+  html:
+    theme: cosmo
+    css: styles.css
+    toc: true
+    toc-depth: 3
+    number-sections: true
+    code-fold: true
+    code-tools: true
+    highlight-style: github
+
+execute:
+  freeze: auto

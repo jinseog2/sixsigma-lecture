@@ -1,0 +1,89 @@
+---
+title: "6σ ABC - 확률과 통계 기초"
+---
+
+## 확률 분포 개요
+
+통계적 품질관리의 기반이 되는 주요 확률분포를 학습합니다.
+
+## 이산형 확률분포
+
+### 이항분포 (Binomial Distribution)
+
+불량/양호처럼 2가지 결과만 있는 경우 사용합니다.
+
+$$P(X=k) = \binom{n}{k} p^k (1-p)^{n-k}$$
+
+::: {.callout-tip title="직관적 이해" collapse="true"}
+**예**: 동전을 10번 던질 때 앞면이 3번 나올 확률
+
+- n = 10 (시행 횟수)
+- p = 0.5 (성공 확률)
+- k = 3 (성공 횟수)
+
+이항분포는 **독립적인 베르누이 시행**의 합입니다.
+:::
+
+**예제 1**: 주사위를 10번 던졌을 때, 3이 두 번 나올 확률
+
+**예제 2**: 4지 선다형 객관식 5문제 중 순전히 추측으로 3문제 이상 맞힐 확률
+
+### 초기하분포 (Hypergeometric Distribution)
+
+비복원 추출 시 사용합니다.
+
+$$P(X=k) = \frac{\binom{K}{k}\binom{N-K}{n-k}}{\binom{N}{n}}$$
+
+**예제**: 100개 제품 중 불량 5개가 있을 때, 10개 샘플링에서 불량품 수의 분포
+
+### 포아송분포 (Poisson Distribution)
+
+단위 시간/면적당 발생 횟수에 사용합니다.
+
+$$P(X=k) = \frac{e^{-\lambda}\lambda^k}{k!}$$
+
+**예제**: 철판 한 장(10㎡)당 결점개수 m=3일 때의 분포
+
+## 연속형 확률분포
+
+### 정규분포 (Normal Distribution)
+
+$$f(x) = \frac{1}{\sigma\sqrt{2\pi}} e^{-\frac{(x-\mu)^2}{2\sigma^2}}$$
+
+::: {.callout-tip title="정규분포 직관" collapse="true"}
+**핵심**: 많은 자연 현상과 제조 공정의 측정값은 정규분포를 따릅니다.
+
+- 평균(μ) 중심으로 좌우 대칭
+- 표준편차(σ)가 클수록 분포가 넓게 퍼짐
+- 68-95-99.7 규칙: μ±1σ(68%), μ±2σ(95%), μ±3σ(99.7%)
+
+**추천 영상**: [StatQuest - Normal Distribution](https://www.youtube.com/watch?v=rzFX5NWojp0)
+
+**인터랙티브 시뮬레이션**: [Seeing Theory](https://seeing-theory.brown.edu/)
+:::
+
+### 중심극한정리
+
+표본 크기가 충분히 크면(n≥30), 모집단의 분포에 관계없이 표본평균의 분포는 정규분포에 가까워집니다.
+
+::: {.callout-tip title="중심극한정리 직관" collapse="true"}
+**추천 영상**: [3Blue1Brown - But what is the Central Limit Theorem?](https://www.youtube.com/watch?v=zeJD6dqJ5lo)
+:::
+
+## 실습 도구 (확률분포 계산기)
+
+<div class="streamlit-embed">
+<iframe
+  src="https://app-distribution.streamlit.app/?embedded=true"
+  height="700"
+  width="100%"
+  frameborder="0">
+</iframe>
+</div>
+
+::: {.callout-note title="실습 도구 사용법"}
+1. 왼쪽 사이드바에서 분포 유형 선택 (정규분포/이항분포/포아송분포/초기하분포)
+2. 파라미터 입력
+3. 계산 유형 및 값 선택
+4. **▶ 계산** 클릭 → 확률 및 그래프 확인
+:::
