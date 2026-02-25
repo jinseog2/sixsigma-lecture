@@ -91,7 +91,7 @@ $$u_i = \frac{c_i}{n_i}, \quad UCL_i = \bar{u} + 3\sqrt{\frac{\bar{u}}{n_i}}$$
 
 <div class="streamlit-embed">
 <iframe
-  src="https://app-control-chart.streamlit.app/?embedded=true"
+  src="https://sixsigma-apps.streamlit.app/Control_Chart?embed=true"
   height="750"
   width="100%"
   frameborder="0">

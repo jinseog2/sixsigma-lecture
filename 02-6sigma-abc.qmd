@@ -74,7 +74,7 @@ $$f(x) = \frac{1}{\sigma\sqrt{2\pi}} e^{-\frac{(x-\mu)^2}{2\sigma^2}}$$
 
 <div class="streamlit-embed">
 <iframe
-  src="https://app-distribution.streamlit.app/?embedded=true"
+  src="https://sixsigma-apps.streamlit.app/Distribution?embed=true"
   height="700"
   width="100%"
   frameborder="0">

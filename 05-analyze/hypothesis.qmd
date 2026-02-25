@@ -94,7 +94,7 @@ $$\chi^2 = \sum \frac{(O - E)^2}{E}$$
 
 <div class="streamlit-embed">
 <iframe
-  src="https://app-ttest.streamlit.app/?embedded=true"
+  src="https://sixsigma-apps.streamlit.app/Hypothesis_Test?embed=true"
   height="700"
   width="100%"
   frameborder="0">

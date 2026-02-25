@@ -90,7 +90,7 @@ $$VIF_j = \frac{1}{1 - R_j^2}$$
 
 <div class="streamlit-embed">
 <iframe
-  src="https://app-regression.streamlit.app/?embedded=true"
+  src="https://sixsigma-apps.streamlit.app/Regression?embed=true"
   height="700"
   width="100%"
   frameborder="0">

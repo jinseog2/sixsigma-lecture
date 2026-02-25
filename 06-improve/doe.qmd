@@ -80,7 +80,7 @@ $$Y = \beta_0 + \sum \beta_i X_i + \sum \beta_{ii} X_i^2 + \sum \beta_{ij} X_i X
 
 <div class="streamlit-embed">
 <iframe
-  src="https://app-doe.streamlit.app/?embedded=true"
+  src="https://sixsigma-apps.streamlit.app/DOE?embed=true"
   height="750"
   width="100%"
   frameborder="0">

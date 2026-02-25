@@ -76,7 +76,7 @@ $$Z_{lt} = Z_{st} - 1.5 \quad \text{(장기 시그마 수준, 1.5σ shift 반영
 
 <div class="streamlit-embed">
 <iframe
-  src="https://app-capability.streamlit.app/?embedded=true"
+  src="https://sixsigma-apps.streamlit.app/Capability?embed=true"
   height="700"
   width="100%"
   frameborder="0">

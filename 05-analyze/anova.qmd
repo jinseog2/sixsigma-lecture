@@ -62,7 +62,7 @@ One-Way ANOVA의 확장. 여러 인자와 공변량을 동시에 분석
 
 <div class="streamlit-embed">
 <iframe
-  src="https://app-anova.streamlit.app/?embedded=true"
+  src="https://sixsigma-apps.streamlit.app/ANOVA?embed=true"
   height="700"
   width="100%"
   frameborder="0">

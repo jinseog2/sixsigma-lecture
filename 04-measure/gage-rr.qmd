@@ -79,7 +79,7 @@ $$\text{Gage R\&R} = \text{반복성(Repeatability)} + \text{재현성(Reproduci
 
 <div class="streamlit-embed">
 <iframe
-  src="https://app-gage-rr.streamlit.app/?embedded=true"
+  src="https://sixsigma-apps.streamlit.app/Gage_RR?embed=true"
   height="700"
   width="100%"
   frameborder="0">
