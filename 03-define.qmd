@@ -2,50 +2,344 @@
 title: "Define - 프로젝트 정의"
 ---
 
-## Define 단계 개요
+> **Define 단계**: 고객(Customer)의 관점에서 중요하고 경영 성과에 영향이 가장 큰 올바른 과제를 처음부터 선정해서, 이를 성공적으로 추진하기 위해 Project를 명확하게 정의하는 단계
 
-Define 단계는 6시그마 프로젝트의 출발점으로, 문제를 명확히 정의하고 프로젝트 범위를 설정합니다.
+## 0. 개요 {#overview}
 
-## 주요 도구
+### Define 단계의 목적과 활동
 
-### SIPOC 다이어그램
+| 활동 Step | 목적 | Tool |
+|-----------|------|------|
+| **1. 과제 선정** | 올바른 과제를 처음부터 선정 | Big Y-little y 전개, Pareto, QFD, FMEA, Brainstorming, Process Mapping |
+| **2. KPI와 Project Y 도출** | 측정 가능한 지표 도출 | - |
+| **3. 개선 목표 설정** | 과제의 목표를 명확히 설정 | - |
+| **4. Project 등록** | 과제 등록서 작성 | - |
 
-| 구성요소 | 설명 | 예시 |
-|---------|------|------|
-| **S**upplier | 인풋 제공자 | 원자재 공급업체 |
-| **I**nput | 프로세스 인풋 | 원자재, 정보 |
-| **P**rocess | 핵심 프로세스 단계 | 제조 공정 |
-| **O**utput | 프로세스 아웃풋 | 완제품 |
-| **C**ustomer | 아웃풋 수요자 | 최종 고객 |
+**Output**: Project Y, Project 등록서
 
-### VOC → CTQ 변환
+### KPI, CTQ(Y), Project Y
 
-```
-고객 불만(VOC) → 핵심 품질특성(CTQ) → 측정 가능한 규격
-```
+::: {.callout-tip title="KPI (Key Performance Indicator)" collapse="true"}
+개인이나 조직의 전략(또는 목표) 달성에 대한 기여도가 높은 요소의 성과를 측정하는 지표
 
-**예시**:
-- VOC: "제품이 자주 고장난다"
-- CTQ: 제품 수명
-- 규격: MTBF ≥ 5,000시간
-
-### 프로젝트 헌장 (Project Charter)
-
-프로젝트 헌장에는 다음 내용이 포함되어야 합니다:
-
-1. **문제 기술**: 현재 상태와 목표 상태
-2. **비즈니스 케이스**: 재무적 영향
-3. **범위**: In-scope / Out-of-scope
-4. **팀 구성**: Champion, BB, MBB, 팀원
-5. **일정**: 마일스톤
-
-## Pareto 분석
-
-::: {.callout-tip title="파레토 원칙" collapse="true"}
-"전체 결과의 80%는 전체 원인의 20%에서 발생한다"
-
-Pareto 차트를 통해 핵심 문제(Vital Few)를 식별합니다.
+- 조직의 전략(목표) 달성에 기여할 수 있어야 함
+- **정량화**할 수 있어야 함
+- 예) 매출, 이익, 브랜드 파워, 시장 불량률, 수율 등
+- 개선활동에서 *"KPI가 무엇인가?"*라고 묻는 것은 *"개선활동의 목적이 무엇이냐?"*고 묻는 것과 같음
 :::
+
+::: {.callout-tip title="CTQ (Critical To Quality)" collapse="true"}
+고객의 관점에서 정의되고, 고객의 입장에서 치명적인 제품, Service 또는 Process의 특성치
+
+- KPI 성과를 좌우하는 고객 관점의 결정적인 하위 특성치
+- 부품 CTQ (Design Review 연계, Z값 판정)
+- 성능 CTQ(Y) (FFR/CMR 연계, Z값 판정)
+- 공정 CTQ (CTP 연계, 관리도 중심)
+
+고객 만족에 영향도가 있는 어떤 것이라도 CTQ로 선정될 수 있음:
+제품 성능, 특정 부품 Spec, 수리 시간, 청구서 정확성, 친절도 등
+
+**CTP (Critical To Process)**: 품질이나 CTQ에 영향을 줄 수 있는 설비, 공정, 작업 등의 조건들 (컨베이어 속도, 설비 온도, 가공시간, 토크 등)
+:::
+
+::: {.callout-note title="KPI와 Project Y의 관계"}
+```
+KPI = Project Y  (혹은)
+KPI ≒ Σ(Project Yi)
+```
+
+Project Y는 KPI를 잘 설명할 수 있는 특성 값이어야 합니다:
+
+- 계량치와 계수치 모두 가능하나 최대한 정량적인 물리적 특성치로 정량화
+- 예) mm, dBm, Kg/f, 전압(V) 등
+- 하나의 KPI에는 여러 개의 Project Y가 존재할 수 있음
+:::
+
+### DMAIC 세부 추진 Step
+
+| Phase | 세부 Step |
+|-------|----------|
+| **Define** (정의) | S1. 올바른 과제 선정 → S2. Project Y의 도출 → S3. Project 등록 |
+| **Measure** (측정) | S4. 측정 System 검증 → S5. Project Y 현수준 파악 → S6. 개선방향 & 목표 설정 |
+| **Analyze** (분석) | S7. 가인자 선정 및 통계적 추론 → S8. 치명인자 선정 |
+| **Improve** (개선) | S9. 최적 개선안 선정 → S10. 실행 및 검증 |
+| **Control** (관리) | S11. 표준화 → S12. 모니터링 → S13. 공유/전파 |
+
+---
+
+## 1. 과제 선정 {#project-selection}
+
+Six Sigma에서 말하는 올바른 과제란 **"고객의 요구사항(VOC)과 Business Issue(VOB)를 반영하여 당해 년도 경영에 Impact가 큰 과제"**를 말합니다.
+
+> 측정할 수 없다면, 확인할 수 없다
+
+### Big Y – little y 전개를 통한 과제 선정
+
+```
+VOC/VOB → Big Y 도출 → little y's → Six Sigma Project / Task / 일상 업무 개선
+```
+
+$$\text{Big Y} = f(y_1, y_2, \ldots, y_n)$$
+
+::: {.callout-important title="Big Y Check-Point"}
+프로젝트를 도출하기 전에 반드시 **"Big Y"**를 이해하라. 성과는 인정 받을 수 있을 때만 가치가 있다.
+:::
+
+### SMART 기준
+
+과제 선정 시 SMART 기준을 충족해야 합니다:
+
+| 기준 | 의미 |
+|------|------|
+| **S**pecific | 문제의 범위가 명확할 것 |
+| **M**easurable | 성과를 측정할 수 있을 것 |
+| **A**ttainable | 팀이 해결할 수 있을 것 |
+| **R**elevant | 사업의 목표와 밀접한 관계가 있을 것 |
+| **T**ime bound | 주어진 시간에 해결이 가능할 것 |
+
+### 과제 선정 경로
+
+수행할 과제는 다양한 경로를 통해 선정이 가능하나, 활동 기간/투입 인원/해결 가능성 등을 고려하여 대상과 범위를 적절하게 결정해야 합니다:
+
+| 경로 | 설명 |
+|------|------|
+| **Top-down** | 경영자로부터 부여받은 과제 |
+| **전략 전개** | 중장기전략, 사업계획 → Big Y → little y 전개 |
+| **품질 Issue** | CTQ(Y)에 영향을 주는 주요 Input/Process 인자의 개선 |
+| **경쟁력 분석** | 일등 경쟁사와의 Gap 해소 또는 추가 경쟁력 확보 |
+| **Turn Around** | 극한의 목표 달성을 위한 세분화 과제 |
+
+### Pareto 분석
+
+다양한 Issue 중에서 **중요한 소수의 핵심 Issue 사항**을 도출하는 데 유용합니다.
+
+::: {.callout-note title="파레토 원칙 (Pareto Rule)"}
+**결과의 80%는 20%의 소수 원인에 의해 결정된다.**
+
+문제가 되는 요인들에 대해 중요도 순으로 나타내기 때문에, 해결에 집중해야 할 **소수 핵심인자(Vital Few)**를 보여줍니다.
+:::
+
+**작성 방법:**
+
+1. Issue/불량/결함 등의 데이터 또는 Vote를 수집
+2. 각 항목 또는 유사 항목으로 그룹화하여 발생 빈도를 집계
+3. 빈도가 큰 순서대로 나열하여 막대그림으로 표현 (X축: 항목, Y축 좌측: 빈도, 우측: 누적점유율)
+4. 누적 빈도와 백분율을 계산하여 도시
+
+**해석 기준:**
+
+- 어떤 항목이 가장 빈도가 높은가?
+- 가장 빈도가 높은 항목은 전체 중 어느 정도의 비중을 갖는가?
+- 특정 비중의 Issue를 해결하기 위해서는 어떤 항목까지 고려해야 하는가?
+
+#### 파레토 차트 실습 도구
+
+아래에서 STB 1.1 데이터를 사용한 파레토 차트를 직접 생성해 볼 수 있습니다:
+
+<iframe src="https://sixsigma-apps.streamlit.app/Pareto?embed=true"
+  height="800" style="width:100%;border:none;"></iframe>
+
+### QFD (Quality Function Deployment)
+
+고객의 요구사항(Needs)을 사업부 업무의 요구사항으로 전환하는 체계적인 방법입니다.
+
+::: {.callout-tip title="QFD란?" collapse="true"}
+**품질기능전개(Quality Function Deployment)**
+
+연구, 개발, 요소기술, 제조, 마케팅/판매 및 물류단계에서 유용하게 활용 가능합니다.
+
+QFD는 **정성적 방법**이므로 기법의 숙달보다는 업무 프로세스에 대한 이해와 경험이 우선합니다.
+:::
+
+**작성 방법:**
+
+1. 고객을 명확히 정의 (Internal vs. External)
+2. 다양한 방법으로 VOC 수집
+3. VOC를 QFD Sheet 좌측에 기입
+4. SIPOC를 통해 분석된 Process의 주요 Step을 QFD Sheet 위쪽에 기입
+5. 개별 VOC와 Process Step간의 관계 분석: 약(1), 중(3), 강(9)
+6. VOC 항목의 가중치를 이용하여 가중 합 계산 → 중요도 파악
+7. Process Step의 우선순위 설정
+
+::: {.callout-warning title="QFD 작성 시 주의사항" collapse="true"}
+- 다양한 영역과 부문의 실무자를 참가시킴
+- VOC와 프로세스 단계는 가능한 한 **MECE** 형태이어야 함
+- 직접적인 연관성만 고려하고, 관계의 등급을 정함
+
+**VOC → 요구품질 변환 시:**
+
+- 고객의 소리는 주로 불만으로 표현되어 있으므로, 긍정적 문장("---- 한다")으로 전환
+- 객관적인 가중치 결정: 사전 조사 또는 **AHP**(Analytic Hierarchy Process, 계층화 의사결정기법) 활용
+:::
+
+### FMEA (Failure Mode & Effects Analysis)
+
+제품/프로세스의 잠재적 결함/고장 형태와 그 영향을 조사·평가하여, 고장 발생 기회를 제거하거나 줄일 수 있도록 고안된 기법입니다.
+
+::: {.callout-important title="FMEA 핵심"}
+실제 결함/고장이 발생되기 **전**에 실시함으로써 결함/고장을 **사전에 예방**하는 도구로 활용해야 합니다. → **시기적 적절성(Before-the-Event)** 고려
+:::
+
+**RPN (Risk Priority Number) = 치명도 × 발생도 × 감지도**
+
+| 평가 항목 | 낮음 → 높음 | 설명 |
+|-----------|-------------|------|
+| **치명도 (Severity)** | 1 → 10 | 각 고장/결함이 고객에 미치는 영향의 심각도 |
+| **발생도 (Occurrence)** | 1 → 10 | 각 고장/결함의 발생 가능성 |
+| **감지도 (Detection)** | 10 → 1 | 고객에게 전달 전 감지될 가능성 (높을수록 점수 낮음) |
+
+```
+제품/프로세스 → 결함/고장 형태 → 치명도(영향) × 발생도(원인) × 감지도(관리) = 위험도(RPN) → 개선
+```
+
+### Process Mapping
+
+전체 Process를 나열하고, 개별 Process에서의 입력 요인들과 출력(결과물)을 정리하여 주요 문제를 도출합니다.
+
+::: {.callout-tip title="Process Mapping 장점" collapse="true"}
+- 프로젝트의 **범위를 명확히** 해줌
+- 프로세스의 전체적인 모습과 세부 단계의 관계를 이해
+- 간과하기 쉬운 프로세스 단계들을 명확히 정의
+- 부서간의 의사소통이 용이 → 역할 분담 시 유용
+
+**고려 사항:**
+
+- 공정의 흐름과 함께 시간, 품질, 비용, 입력/출력 정보를 포함
+- 공정을 잘 이해하는 사람들이 작성
+- 실제 수행되고 있는 공정을 문서화, 수시로 재검토 및 갱신
+
+**범례:**
+
+- **C**: Controllable (통제 가능)
+- **N**: Noise (잡음)
+- **S**: S.O.P (Standard Operating Procedures)
+- **C/T**: Cycle Time
+:::
+
+### Big Data 과제 선정
+
+다수의 변수 및 데이터 연결을 통한 **예측적 개선과 관리**라는 관점에서 Big Data 과제를 선정할 수 있습니다.
+
+---
+
+## 2. KPI와 Project Y의 도출 {#kpi-projecty}
+
+과제 선정의 방법을 통해 올바른 과제를 뽑았다면, 선정된 과제의 KPI를 통해 개선의 방향을 명확히 하고, KPI 목표 달성을 위해 KPI를 대표할 수 있는 **측정 가능한 지표**로 Project Y를 도출합니다.
+
+### KPI와 Project Y의 관계
+
+| KPI (과제 목표) | Project Y (실질 개선 대상) |
+|----------------|--------------------------|
+| Main Board FFR (Latch up 불량) | L9 IC 온도 |
+| Display 화질 불량률 | 색 좌표 |
+| LCM Line Defect | Drive IC 전압 |
+| 배달 만족도 | 배달 시간 |
+| 휴대폰 터치 오작동 FFR | 터치 면적/좌표 |
+
+### 올바른 Project Y란?
+
+1. 실제 현상을 잘 설명하는 지표
+2. 과제의 KPI를 대표할 수 있어야 함 (Multi Y 선정도 가능: Y1, Y2, ...)
+3. 측정 가능한 지표로서 최대한 물리적 특성 값으로 선정
+   - 정보량이 많은 Data Type: **연속형**
+   - 쉽게 즉시 측정 가능
+
+---
+
+## 3. 개선 목표 설정 {#goal-setting}
+
+> 혁신적(Aggressive but Realistic) 목표가 몰입을 유도하고, 목표는 적당한 것이 아니라 **정당**해야 한다.
+
+```
+현재 (개선 전)  →  목표 (개선 후)
+     Why?           How much?
+```
+
+### 목표 설정 방법
+
+| 방법 | 설명 |
+|------|------|
+| **Benchmarking** | 회사 내 최고 결과, World Best, 경쟁사 대비 |
+| **이론적 한계치 분석** | 이론적으로 가능한 최대 수준 |
+| **Gap 분석** | 현재와 목표 간 차이 분석 |
+| **회사 가이드** | 성과금액: 연 1.3억 원 이상 등, 4.5σ 이상 또는 DPMO 2배 이상 개선 |
+| **챔피언의 의지** | Data에 근거한 경영자 판단 |
+
+---
+
+## 4. Project 등록 {#project-registration}
+
+과제 등록서는 요식행위가 아니라, **개선 실행의 큰 그림을 그리는 것**입니다.
+
+### Project 등록서 작성 가이드
+
+| 순서 | 내용 |
+|------|------|
+| **1st** | 경영이슈를 VOB 또는 VOC로 정량적으로 담음 |
+| **2nd** | 경영이슈를 해결할 수 있는 과제를 선정 |
+| **3rd** | KPI, Project Y, Side effect를 기록 |
+| **4th** | 목표 달성시 예상되는 경영성과를 **금액**으로 계산/기록 |
+| **5th** | 목표달성을 위한 "한계돌파 Idea"를 실무적 관점에서 기술 |
+| **6th** | 과제를 효과적으로 수행할 수 있는 **CFT**로 구성 |
+
+::: {.callout-note title="등록서 작성 시 유의사항" collapse="true"}
+- **과제명**: 어떤 제품에 어떤 문제를 개선해서 어떤 성과를 낼 것인지 명확히 표현
+  - 예) "Front Loader 세탁기 FFR 50% 개선", "유럽시장 000제품 에너지효율 1등급 달성"
+- **Champion**: 본부장/사업부장 등 과제를 최종 보고/승인하는 임원
+- **대상**: 개선하려고 하는 제품, 공정, 시스템 등
+- **경영성과**: KPI 목표 달성시 회사 경영성과에 기여하는 금액
+- **필요성**: 과제를 왜 해야 하는지 가급적 정량적으로 표현
+- **추진 계획**: DMAIC 각 단계별 일반적 내용만 적지 말고, 목표달성을 위해 어디에 역량을 집중할 것인지, 새로운 시도는 무엇인지 기록
+:::
+
+---
+
+## 5. 실행 절차 및 Blank Chart {#execution}
+
+### Six Sigma 실행 절차
+
+| Phase | 주요 활동 | Tool |
+|-------|----------|------|
+| **Define** | 과제 선정 → Big Y-little y's Map 전개 → KPI/목표 설정 → 과제 등록서 작성 | Brainstorming, Logic Tree, AHP, Process Mapping, Gantt Chart |
+| **Measure** | 모든 X's, Y's Listing → Data Frame 작성 → Data 수집 계획 → Gage R&R → Data 수집 → Quality 평가 | Gage R&R, Sampling, Capability Analysis |
+| **Analyze** | 예비분석 → Data 전처리 → 탐색적 분석 → Feature Selection → Initial Modeling | Graph, Hypothesis Test, Correlation, Regression, ML Tools |
+| **Improve** | 예측 모델 최적화 → 개선 실행 → Side Effect 평가 → 효과 확인 | DOE, ML Tools, AI, Capability Analysis |
+| **Control** | 표준화/시스템화 → 변화관리 계획 → 교육/확산 → AAR | Control Chart, Hypothesis Test, Change Management |
+
+::: {.callout-tip title="Big Data 과제 실행 절차" collapse="true"}
+Big Data 과제의 경우 다음 단계를 따릅니다:
+
+1. **Identify**: X Y 식별과 Data 수집
+2. **Design**: Initial Modeling 및 비교 평가
+3. **Optimize**: Hyper-parameter 최적화
+4. **Validate**: 현물 Validation
+:::
+
+### 과제 실행 Blank Chart 구조
+
+과제 보고서의 기본 구성:
+
+| 번호 | 항목 | 설명 |
+|------|------|------|
+| 1 | 표지 | 과제 제목 |
+| 2 | 과제등록서 | 공통 서식 활용 |
+| 3 | Big Y-little y's Map | 사업부 Y-y Map에서 과제 범위 표시 |
+| 4 | 실행 과제 전개 | 방법/일정/담당자 (Y-y Map과 결합 가능) |
+| 5 | 간지 | 각 실행과제 구분 |
+| 6 | Project Y 확정과 측정계획 | KPI와 Project Y의 관계, 측정 계획 수립 |
+| 7 | Gage R&R 결과 | 불필요 시 Skip, 기 실시 결과 준용 가능 |
+| 8 | 측정 결과 분석 | 현상 분석 내용 포함 필수 |
+| 9 | 특성 요인도 | C&E Diagram, Logic Tree, Mind Map 등 |
+| 10 | 가인자 도출 | 선정 근거 반드시 명기 |
+| 11 | 가인자 별 통계적 검증 | 인자별 1 page, 기술적 분석 포함 |
+| 12 | 치명인자 확정 | 통계 분석 요약, 개선방향 결정 |
+| 13 | 즉 개선 | 실행 내용별 1 page, 효과 분석 필수 |
+| 14~16 | 실험 (2ⁿ → 최적화 → 재현) | 축차 실험: Screening DOE → 최적화(CCD, BBD) → Pilot 적용 |
+| 17~20 | 추가 실행과제 | 즉개선/분석 실행 내용 |
+| 21 | 양산 적용 결과 (KPI) | 모든 실행과제 적용 후 성과 확인 |
+| 22 | 관리 계획 | 관리 항목/방법, 표준화, 수평전개, Monitoring |
+| 23 | New Finding | 새롭게 확인한 지식 정리 |
+| 24 | Lesson Learned/소감 | 교훈 사항 정리 |
 
 ::: {.callout-note}
 Define 단계는 통계 분석보다 프로젝트 관리와 전략이 중심입니다. 다음 Measure 단계부터 통계 실습이 시작됩니다.
