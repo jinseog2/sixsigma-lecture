@@ -2,11 +2,15 @@
 title: "과정 소개 (Introduction)"
 ---
 
+![슬라이드 7](images/ch01/slide_07.png){width=100%}
+
 > **과정 목표**: 급변하는 시대적 변화 포인트인 DX(Digital Transformation)를 이해하고, 이를 접목한 Six Sigma 개선 활동을 수행할 수 있는 마음가짐을 확립한다.
 
 ## 1. 품질과 Six Sigma {#quality-sixsigma}
 
 ### 1.1 품질의 정의
+
+![슬라이드 8](images/ch01/slide_08.png){width=100%}
 
 품질은 **고객 요구의 적합성**이며, **사용자(고객)의 만족도**입니다.
 
@@ -39,6 +43,8 @@ title: "과정 소개 (Introduction)"
 
 ### 1.2 Kano 모델과 고객 요구품질
 
+![슬라이드 9](images/ch01/slide_09.png){width=100%}
+
 고객의 요구 품질은 끊임없이 상승합니다.
 
 | 품질 유형 | 충족 시 | 미충족 시 | 예시 |
@@ -61,6 +67,8 @@ Product Liability(제조물 책임)까지 포함하여, 품질은 전 조직 역
 
 ### 1.3 품질 비용과 1:10:100 법칙
 
+![슬라이드 10](images/ch01/slide_10.png){width=100%}
+
 **품질 문제 = 비용 유발 → 이윤 감소**
 
 R&D는 설계 단계에서 비용/시간이 들더라도 완벽한 품질 수준을 확보함으로써, 양산 단계에서 불필요한 설계변경에 의한 비용을 예방해야 합니다.
@@ -71,6 +79,8 @@ R&D는 설계 단계에서 비용/시간이 들더라도 완벽한 품질 수준
 | **생산** | 10x | - |
 | **시장** | 100x | 발견/예측은 쉽지만 개선에 비용이 많이 소요됨 |
 
+![슬라이드 11](images/ch01/slide_11.png){width=100%}
+
 ::: {.callout-warning title="1:10:100 법칙 사례"}
 - **페덱스**: 사내 즉개선 : 사외에서 발견 : 고객이 배상 요구
 - **Joseph M. Juran**: 예방비용 : 평가비용 : 실패비용
@@ -80,6 +90,8 @@ R&D는 설계 단계에서 비용/시간이 들더라도 완벽한 품질 수준
 :::
 
 ### 1.4 품질은 전 조직 역량결집의 결과
+
+![슬라이드 12](images/ch01/slide_12.png){width=100%}
 
 ```
 NTI Process (New Technology Introduction)
@@ -99,6 +111,8 @@ NTI Process (New Technology Introduction)
 :::
 
 ### 1.5 Six Sigma의 탄생과 확산
+
+![슬라이드 13](images/ch01/slide_13.png){width=100%}
 
 | 시기 | 사건 |
 |------|------|
@@ -126,6 +140,8 @@ Six Sigma가 전 세계적으로 확산된 이유:
 
 ### 1.6 Data 기반 문제 해결
 
+![슬라이드 14](images/ch01/slide_14.png){width=100%}
+
 > "Six Sigma는 경험과 기술이 부족한 상황하에서도 체계적인 문제해결을 도움"
 
 ```
@@ -136,6 +152,8 @@ Six Sigma가 전 세계적으로 확산된 이유:
 경험에 의한 문제해결이나 기술에 의한 문제해결과 달리, **Data 기반 문제해결**은 체계적이고 재현 가능합니다.
 
 ### 1.7 의사결정과 산포
+
+![슬라이드 15](images/ch01/slide_15.png){width=100%}
 
 ::: {.callout-important title="의사결정 문제: Sample 10개 측정 (규격: 100±4)"}
 **의사결정 1**: 모두 규격 만족이므로 합격
@@ -151,12 +169,16 @@ Six Sigma가 전 세계적으로 확산된 이유:
 
 ### 1.8 공정능력과 Sigma Level
 
+![슬라이드 16](images/ch01/slide_16.png){width=100%}
+
 공정능력이란 공정이 양품을 만들어내는 능력을 숫자로 표현한 것입니다.
 
 $$Z = \frac{USL - \bar{X}}{\sigma}$$
 
 - T: Target, USL: Upper Spec Limit
 - 평균과 산포 개선의 결과는 **공정능력(Sigma Level)을 향상**시킵니다.
+
+![슬라이드 17](images/ch01/slide_17.png){width=100%}
 
 #### 정규분포와 시그마 수준
 
@@ -175,6 +197,8 @@ $$Z = \frac{USL - \bar{X}}{\sigma}$$
 
 ### 1.9 Y = f(X) + ε
 
+![슬라이드 18](images/ch01/slide_18.png){width=100%}
+
 > Six Sigma는 **"Y = f(X's) + ε"**을 체계적으로 증명하여, 새로운 지식(New Finding / New Solution)의 축적을 도와줍니다.
 
 | 상황 | New Finding | New Solution | 6σ 해당 |
@@ -188,21 +212,33 @@ $$Z = \frac{USL - \bar{X}}{\sigma}$$
 
 ### 1.10 Six Sigma 3대 원칙
 
-#### ① 고객 관점
+![슬라이드 19](images/ch01/slide_19.png){width=100%}
+
+#### 1) 고객 관점
 - 고객에게 주는 가치가 명확한 KPI를 선정
 - 누구에게도 고객은 있다 (내부 고객, 외부 고객, 경쟁사 고객, 비고객)
 - 고객의 Needs, Wants, Pain Points 파악
 
-#### ② 사실에 근거
+#### 2) 사실에 근거
 - 정량 Data로 커뮤니케이션
 - Data로 표현할 수 없다는 것은 아무 것도 모른다는 것과 같다
 - 정량/정성, 연속형/이산형, 숫자/문자/영상/음성/로그 데이터
 - 측정, 관찰, 설문조사, 인터뷰, 실험 → 타당성, 신뢰성, 대표성
 
-#### ③ 전체최적화
+#### 3) 전체최적화
 - 개선에 따른 부작용(Side Effect)을 경계
 - 부분 최적화 위한 개선 요소는 언젠가 개악요소로 진화
 - 성과와 비용, 효율과 효과, 시소 현상(Trade-off)의 극복
+
+### 1.11 Full Process vs. Flexible Process
+
+![슬라이드 20](images/ch01/slide_20.png){width=100%}
+
+DMAIC 프로세스는 문제 유형과 상황에 따라 전체 단계를 충실히 수행하는 **Full Process**와, 핵심 단계에 집중하는 **Flexible Process**로 운영할 수 있습니다.
+
+::: {.callout-note title="PPT 원본 슬라이드" collapse="true"}
+위 슬라이드에서 Full Process와 Flexible Process의 DMAIC 각 단계별 적용 범위 비교 도식을 확인할 수 있습니다.
+:::
 
 ---
 
@@ -210,9 +246,17 @@ $$Z = \frac{USL - \bar{X}}{\sigma}$$
 
 ### 2.1 Industry & Digital 전환
 
+![슬라이드 21](images/ch01/slide_21.png){width=100%}
+
 디지털 전환(DX)은 모든 산업에 걸친 혁신의 핵심입니다.
 
+::: {.callout-note title="PPT 원본 슬라이드" collapse="true"}
+위 슬라이드에서 산업혁명의 진화 과정과 디지털 전환의 위치를 시각적 도식으로 확인할 수 있습니다.
+:::
+
 ### 2.2 데이터 변화
+
+![슬라이드 22](images/ch01/slide_22.png){width=100%}
 
 사회 변화의 핵심 동인:
 
@@ -222,7 +266,21 @@ $$Z = \frac{USL - \bar{X}}{\sigma}$$
 | **속도 증가** (Real Time) | 지금의 반응(데이터 분석) 속도는 충분한가? |
 | **데이터 변화** (형태/구성/양적 변화) | 활용할 수 있는 데이터를 정확하게 효율적으로 사용하고 있는가? |
 
+![슬라이드 23](images/ch01/slide_23.png){width=100%}
+
+::: {.callout-note title="추론과 탐색" collapse="true"}
+위 슬라이드에서 전통적 추론(Inference) 방식과 탐색(Exploration) 방식의 차이점을 시각적으로 확인할 수 있습니다.
+:::
+
+![슬라이드 24](images/ch01/slide_24.png){width=100%}
+
+::: {.callout-note title="Summarize" collapse="true"}
+위 슬라이드에서 데이터 변화에 대한 요약 도식을 확인할 수 있습니다.
+:::
+
 ### 2.3 Six Sigma와 DX의 강점과 한계
+
+![슬라이드 25](images/ch01/slide_25.png){width=100%}
 
 | | Six Sigma 강점 | Six Sigma 한계 |
 |---|---|---|
@@ -242,11 +300,27 @@ $$Z = \frac{USL - \bar{X}}{\sigma}$$
 Six Sigma와 DX는 상호 보완적입니다. Six Sigma의 체계적인 문제해결 프레임워크(DMAIC)에 DX의 빅데이터/AI 기술을 접목하여 더 강력한 개선 활동이 가능합니다.
 :::
 
+### 2.4 DX 접목 사례
+
+![슬라이드 26](images/ch01/slide_26.png){width=100%}
+
+::: {.callout-note title="PPT 원본 슬라이드 - DX 접목 사례 1" collapse="true"}
+위 슬라이드에서 Six Sigma에 DX를 접목한 첫 번째 사례의 시각적 도식을 확인할 수 있습니다.
+:::
+
+![슬라이드 27](images/ch01/slide_27.png){width=100%}
+
+::: {.callout-note title="PPT 원본 슬라이드 - DX 접목 사례 2" collapse="true"}
+위 슬라이드에서 Six Sigma에 DX를 접목한 두 번째 사례의 시각적 도식을 확인할 수 있습니다.
+:::
+
 ---
 
 ## 3. 빅데이터 분석도구 {#bigdata-tools}
 
 ### 3.1 데이터 전처리 (Preprocessing)
+
+![슬라이드 28](images/ch01/slide_28.png){width=100%}
 
 데이터 전처리란 분석 목적이나 방법에 적합하게 데이터를 가공하는 작업입니다.
 
@@ -259,6 +333,8 @@ Six Sigma와 DX는 상호 보완적입니다. Six Sigma의 체계적인 문제�
 | **데이터 변환** (Data Transformation) | 정규화, 이산화, 집계를 통해 변환 |
 
 ### 3.2 머신러닝 개요
+
+![슬라이드 29](images/ch01/slide_29.png){width=100%}
 
 머신러닝은 경험적 데이터를 통해 학습하고, 예측을 탐구하며 스스로 성능을 발전시키는 시스템과 이를 위한 알고리즘을 연구하고 구축하는 기술입니다.
 
@@ -285,6 +361,8 @@ Six Sigma와 DX는 상호 보완적입니다. Six Sigma의 체계적인 문제�
 
 ### 3.3 머신러닝의 종류
 
+![슬라이드 30](images/ch01/slide_30.png){width=100%}
+
 ```
 Machine Learning (기계학습)
 ├── Supervised Learning (지도학습) - Labeled Data로 학습, 향후 데이터를 예측
@@ -295,11 +373,15 @@ Machine Learning (기계학습)
 └── Reinforcement Learning (강화학습) - 보상(Reward) 시스템으로 학습, 최적 의사결정
 ```
 
+![슬라이드 31](images/ch01/slide_31.png){width=100%}
+
 ### 3.4 주요 머신러닝 기법
 
 ::: {.panel-tabset}
 
 #### k-NN
+
+![슬라이드 32](images/ch01/slide_32.png){width=100%}
 
 **k-NN (k-Nearest Neighborhood)**
 
@@ -317,6 +399,8 @@ Machine Learning (기계학습)
 
 #### 회귀분석
 
+![슬라이드 33](images/ch01/slide_33.png){width=100%}
+
 **Regression (회귀분석)**
 
 | 전제조건 | 위배 시 사용되는 회귀분석 |
@@ -333,6 +417,8 @@ Machine Learning (기계학습)
 - ML: Data Partition → Training-set → Learning → Test-set → 성능평가(Test R², RMSE)
 
 #### 앙상블 모형
+
+![슬라이드 34](images/ch01/slide_34.png){width=100%}
 
 **Ensemble Model (앙상블 모형)**
 
@@ -354,6 +440,8 @@ Machine Learning (기계학습)
 
 #### Random Forest
 
+![슬라이드 35](images/ch01/slide_35.png){width=100%}
+
 **Random Forest**
 
 - 배깅 + 변수 선택 + 트리 생성 → 결과 종합 (다수결 또는 평균)
@@ -368,6 +456,8 @@ Machine Learning (기계학습)
 | **nodesize** | 나무의 깊이 설정 (노드에 담기는 표본 수) |
 
 #### SVM
+
+![슬라이드 36](images/ch01/slide_36.png){width=100%}
 
 **SVM (Support Vector Machine)**
 

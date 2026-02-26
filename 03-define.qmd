@@ -2,11 +2,15 @@
 title: "Define - 프로젝트 정의"
 ---
 
+![슬라이드 1](images/ch03/slide_01.png){width=100%}
+
 > **Define 단계**: 고객(Customer)의 관점에서 중요하고 경영 성과에 영향이 가장 큰 올바른 과제를 처음부터 선정해서, 이를 성공적으로 추진하기 위해 Project를 명확하게 정의하는 단계
 
 ## 0. 개요 {#overview}
 
 ### Define 단계의 목적과 활동
+
+![슬라이드 2](images/ch03/slide_02.png){width=100%}
 
 | 활동 Step | 목적 | Tool |
 |-----------|------|------|
@@ -18,6 +22,10 @@ title: "Define - 프로젝트 정의"
 **Output**: Project Y, Project 등록서
 
 ### KPI, CTQ(Y), Project Y
+
+![슬라이드 5](images/ch03/slide_05.png){width=100%}
+
+![슬라이드 6](images/ch03/slide_06.png){width=100%}
 
 ::: {.callout-tip title="KPI (Key Performance Indicator)" collapse="true"}
 개인이나 조직의 전략(또는 목표) 달성에 대한 기여도가 높은 요소의 성과를 측정하는 지표
@@ -57,6 +65,8 @@ Project Y는 KPI를 잘 설명할 수 있는 특성 값이어야 합니다:
 
 ### DMAIC 세부 추진 Step
 
+![슬라이드 4](images/ch03/slide_04.png){width=100%}
+
 | Phase | 세부 Step |
 |-------|----------|
 | **Define** (정의) | S1. 올바른 과제 선정 → S2. Project Y의 도출 → S3. Project 등록 |
@@ -74,6 +84,8 @@ Six Sigma에서 말하는 올바른 과제란 **"고객의 요구사항(VOC)과 
 > 측정할 수 없다면, 확인할 수 없다
 
 ### Big Y – little y 전개를 통한 과제 선정
+
+![슬라이드 3](images/ch03/slide_03.png){width=100%}
 
 ```
 VOC/VOB → Big Y 도출 → little y's → Six Sigma Project / Task / 일상 업무 개선
@@ -99,6 +111,8 @@ $$\text{Big Y} = f(y_1, y_2, \ldots, y_n)$$
 
 ### 과제 선정 경로
 
+![슬라이드 7](images/ch03/slide_07.png){width=100%}
+
 수행할 과제는 다양한 경로를 통해 선정이 가능하나, 활동 기간/투입 인원/해결 가능성 등을 고려하여 대상과 범위를 적절하게 결정해야 합니다:
 
 | 경로 | 설명 |
@@ -110,6 +124,8 @@ $$\text{Big Y} = f(y_1, y_2, \ldots, y_n)$$
 | **Turn Around** | 극한의 목표 달성을 위한 세분화 과제 |
 
 ### Pareto 분석
+
+![슬라이드 8](images/ch03/slide_08.png){width=100%}
 
 다양한 Issue 중에서 **중요한 소수의 핵심 Issue 사항**을 도출하는 데 유용합니다.
 
@@ -132,6 +148,8 @@ $$\text{Big Y} = f(y_1, y_2, \ldots, y_n)$$
 - 가장 빈도가 높은 항목은 전체 중 어느 정도의 비중을 갖는가?
 - 특정 비중의 Issue를 해결하기 위해서는 어떤 항목까지 고려해야 하는가?
 
+![슬라이드 9](images/ch03/slide_09.png){width=100%}
+
 #### 파레토 차트 실습 도구
 
 아래에서 STB 1.1 데이터를 사용한 파레토 차트를 직접 생성해 볼 수 있습니다:
@@ -140,6 +158,10 @@ $$\text{Big Y} = f(y_1, y_2, \ldots, y_n)$$
   height="800" style="width:100%;border:none;"></iframe>
 
 ### QFD (Quality Function Deployment)
+
+![슬라이드 10](images/ch03/slide_10.png){width=100%}
+
+![슬라이드 11](images/ch03/slide_11.png){width=100%}
 
 고객의 요구사항(Needs)을 사업부 업무의 요구사항으로 전환하는 체계적인 방법입니다.
 
@@ -172,7 +194,17 @@ QFD는 **정성적 방법**이므로 기법의 숙달보다는 업무 프로세�
 - 객관적인 가중치 결정: 사전 조사 또는 **AHP**(Analytic Hierarchy Process, 계층화 의사결정기법) 활용
 :::
 
+::: {.callout-note title="QFD 사례 - CTQ 도출" collapse="true"}
+![슬라이드 12](images/ch03/slide_12.png){width=100%}
+
+위 슬라이드에서 QFD를 활용한 CTQ 도출 사례의 상세 내용을 확인할 수 있습니다.
+:::
+
 ### FMEA (Failure Mode & Effects Analysis)
+
+![슬라이드 13](images/ch03/slide_13.png){width=100%}
+
+![슬라이드 14](images/ch03/slide_14.png){width=100%}
 
 제품/프로세스의 잠재적 결함/고장 형태와 그 영향을 조사·평가하여, 고장 발생 기회를 제거하거나 줄일 수 있도록 고안된 기법입니다.
 
@@ -193,6 +225,8 @@ QFD는 **정성적 방법**이므로 기법의 숙달보다는 업무 프로세�
 ```
 
 ### Process Mapping
+
+![슬라이드 15](images/ch03/slide_15.png){width=100%}
 
 전체 Process를 나열하고, 개별 Process에서의 입력 요인들과 출력(결과물)을 정리하여 주요 문제를 도출합니다.
 
@@ -218,6 +252,8 @@ QFD는 **정성적 방법**이므로 기법의 숙달보다는 업무 프로세�
 
 ### Big Data 과제 선정
 
+![슬라이드 16](images/ch03/slide_16.png){width=100%}
+
 다수의 변수 및 데이터 연결을 통한 **예측적 개선과 관리**라는 관점에서 Big Data 과제를 선정할 수 있습니다.
 
 ---
@@ -228,6 +264,8 @@ QFD는 **정성적 방법**이므로 기법의 숙달보다는 업무 프로세�
 
 ### KPI와 Project Y의 관계
 
+![슬라이드 17](images/ch03/slide_17.png){width=100%}
+
 | KPI (과제 목표) | Project Y (실질 개선 대상) |
 |----------------|--------------------------|
 | Main Board FFR (Latch up 불량) | L9 IC 온도 |
@@ -235,6 +273,22 @@ QFD는 **정성적 방법**이므로 기법의 숙달보다는 업무 프로세�
 | LCM Line Defect | Drive IC 전압 |
 | 배달 만족도 | 배달 시간 |
 | 휴대폰 터치 오작동 FFR | 터치 면적/좌표 |
+
+### 문제 현상 분석을 통한 Project Y 선정
+
+![슬라이드 18](images/ch03/slide_18.png){width=100%}
+
+::: {.callout-note title="PPT 원본 슬라이드" collapse="true"}
+위 슬라이드에서 문제 현상 분석을 통한 Project Y 선정 방법의 시각적 도식을 확인할 수 있습니다.
+:::
+
+### Project Y 선정 시 고려사항
+
+![슬라이드 19](images/ch03/slide_19.png){width=100%}
+
+::: {.callout-note title="PPT 원본 슬라이드" collapse="true"}
+위 슬라이드에서 Project Y 선정 시 고려사항의 상세 내용을 확인할 수 있습니다.
+:::
 
 ### 올바른 Project Y란?
 
@@ -257,6 +311,8 @@ QFD는 **정성적 방법**이므로 기법의 숙달보다는 업무 프로세�
 
 ### 목표 설정 방법
 
+![슬라이드 20](images/ch03/slide_20.png){width=100%}
+
 | 방법 | 설명 |
 |------|------|
 | **Benchmarking** | 회사 내 최고 결과, World Best, 경쟁사 대비 |
@@ -272,6 +328,8 @@ QFD는 **정성적 방법**이므로 기법의 숙달보다는 업무 프로세�
 과제 등록서는 요식행위가 아니라, **개선 실행의 큰 그림을 그리는 것**입니다.
 
 ### Project 등록서 작성 가이드
+
+![슬라이드 21](images/ch03/slide_21.png){width=100%}
 
 | 순서 | 내용 |
 |------|------|
@@ -292,11 +350,26 @@ QFD는 **정성적 방법**이므로 기법의 숙달보다는 업무 프로세�
 - **추진 계획**: DMAIC 각 단계별 일반적 내용만 적지 말고, 목표달성을 위해 어디에 역량을 집중할 것인지, 새로운 시도는 무엇인지 기록
 :::
 
+### GOS 시스템 등록 방법
+
+![슬라이드 22](images/ch03/slide_22.png){width=100%}
+
+::: {.callout-note title="GOS 시스템 등록" collapse="true"}
+GOS (Go Six Sigma) 시스템 등록 방법:
+- EP > System Map > 'GOS' 검색 → '전사 6시그마 관리 (GOS)' 클릭
+- 'Project Tracking > 프로젝트 등록' 클릭하여 필수 항목 입력
+- GOS 시스템은 크롬(Chrome)으로 접속
+- 프로젝트 종류: MFG, R&D(HW, SW)
+- 모든 프로젝트는 담당 MBB를 지정해야 함
+:::
+
 ---
 
 ## 5. 실행 절차 및 Blank Chart {#execution}
 
 ### Six Sigma 실행 절차
+
+![슬라이드 23](images/ch03/slide_23.png){width=100%}
 
 | Phase | 주요 활동 | Tool |
 |-------|----------|------|
@@ -316,6 +389,12 @@ Big Data 과제의 경우 다음 단계를 따릅니다:
 :::
 
 ### 과제 실행 Blank Chart 구조
+
+![슬라이드 24](images/ch03/slide_24.png){width=100%}
+
+![슬라이드 25](images/ch03/slide_25.png){width=100%}
+
+![슬라이드 26](images/ch03/slide_26.png){width=100%}
 
 과제 보고서의 기본 구성:
 
