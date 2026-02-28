@@ -2,41 +2,566 @@
 title: "공정능력분석"
 ---
 
-## 공정능력이란?
+## 2. Project Y 현수준 파악 {#current-level}
 
-공정이 규격 내에서 얼마나 일관되게 제품을 생산할 수 있는지를 나타내는 지표입니다.
+![슬라이드 53](../images/ch04/slide_53.png){width=100%}
 
-## 공정능력 지수
+Project Y의 현수준 파악은 반드시 **측정 시스템이 검증된 상태**에서 실시해야 합니다. (Data의 신뢰도 확보가 선행)
 
-### 단기 능력 (Cp, Cpk) - Within 변동 기반
+**(1) 공정의 안정성 확인**: 정규성 검정과 통계적 관리도 활용
+
+- **안정적 공정**이란 특별한 이상원인으로 인해 사고성, Lot성, 돌발적 불량이 발생하지 않고, 양질의 제품을 안정적으로 생산할 수 있도록 잘 관리되고 있는 상태의 공정
+- 평균과 표준편차만으로는 안정성 확인이 어렵고, **분포의 형태**로 확인해야 함
+- 공정에 대한 진단이나 평가는 안정적인 공정에서 수집한 Data로 실시해야만 **대표성, 예측성**을 보장할 수 있음
+
+**(2) 공정능력 분석**: 고객의 요구사항에 대한 공정/프로세스의 적합 정도를 수치로 확인
+
+- **공정능력**이란 '어떤 공정에서 만들어질 수 있는 품질 능력', 또는 '주어진 규격(USL/LSL) 대비 품질변동이 어느 정도인가'를 나타내는 것
+- 이를 진단하는 방법을 **공정능력 분석**이라 하고, 규격 한계 대비 공정이 수행하는 능력을 수치로 나타낸 값을 **공정능력지수**라 함
+- 전통적인 Cp, Cpk, Pp, Ppk 등과 Six Sigma에서 사용하는 **Z값**(Zst, Zlt, Zshift, Zbench) 등이 있음
+
+::: {.callout-note title="표기법" collapse="true"}
+- **Cp**: Process **C**apability (공정능력)
+- **Pp**: Process **P**erformance (공정성과)
+- **k**: Katayori (한쪽으로 치우침, 일본어에서 유래)
+:::
+
+---
+
+### 데이터 수집 - RSP (Rational Subgrouping Plan) {#rsp}
+
+![슬라이드 54](../images/ch04/slide_54.png){width=100%}
+
+**RSP(합리적 군 구분)**란 Subgroup(군)내에는 **우연원인만** 포함되도록 가능한 짧은 시간 동안에 동일한 조건에서 생산된 Sample을 취하고, Subgroup간에는 공정에서 발생 가능한 다양한 **이상원인들이 모두 포함**되도록 Sample을 수집하는 방법입니다.
+
+| 구분 | 권장 | 설명 |
+|------|------|------|
+| **군내 표본크기 (n)** | 4~5개 | 우연원인만 존재하도록 가능한 짧은 시간에 생산되는 4~5개의 Sample |
+| **군의 수 (g)** | 20~30군 | 장기적 관점에서 발생할 수 있는 이상 변동을 충분히 포함 (4M변동에 Focus) |
+
+::: {.callout-tip title="가능한 데이터 수집 방법" collapse="true"}
+1. n개의 Data(1개 군)를 g군 만큼 **순차적으로 수집** → RSP에 해당
+2. 1개의 Data를 g군만큼 순차적으로 수집 → 군내/군간 변동 구분 불가
+3. ng개의 데이터를 랜덤하게 수집 → 군내/군간 변동 구분 불가
+
+RSP로 수집된 Data란 **(1)의 경우만 해당**됩니다. (2)와 (3)의 경우는 장기와 단기 공정능력을 구분하는 것이 무의미합니다.
+
+※ AIAG(Automotive Industry Action Group)에서는 최소 100ea 이상 시료를 권장
+:::
+
+---
+
+### 정규성 진단 {#normality}
+
+![슬라이드 55](../images/ch04/slide_55.png){width=100%}
+
+공정능력 분석 전에 데이터의 **정규성**을 확인해야 합니다.
+
+![슬라이드 56](../images/ch04/slide_56.png){width=100%}
+
+**Minitab 경로:** Stat > Basic Statistics > Normality Test
+
+- 유의수준 5%하에서 p-value < 0.05이면 **정규성에 위배**됨
+
+#### 정규성 위배의 원인과 대책
+
+![슬라이드 57](../images/ch04/slide_57.png){width=100%}
+
+::: {.callout-warning title="정규성 위배시 대책"}
+1. **Stable Operation** / **Stable Factor** / **Data Resume** 등 원인 확인 후 대책 실행
+2. 대책 실행 후에도 정규성이 확보되지 않는 경우 **Box-Cox 변환**을 최후의 수단으로 실시
+3. Box-Cox 변환으로도 정규성이 확보되지 않으면 해당 Data에 **적합한 분포**를 찾아 사용 (비정규분포 분석)
+:::
+
+#### 정규성 교정 (Box-Cox 변환)
+
+![슬라이드 58](../images/ch04/slide_58.png){width=100%}
+
+**Minitab 경로:** Stat > Control Charts > Box-Cox Transformation
+
+**Step 1**: 최적 변환지수(λ, lambda) 결정
+
+- 제공된 값에서 가능한 한 간단한 유효숫자를 갖는 값으로 결정 (예: -3.83 → -4.0)
+
+![슬라이드 59](../images/ch04/slide_59.png){width=100%}
+
+**Step 2**: 변환된 값으로 정규성 검정 재실시
+
+- 결과: 정규성이 교정됨 (p-value = 0.569)
+- 변환된 값으로 추가 분석 시, (LSL, Target, USL) 값들도 동일한 변환지수를 적용하여 변환 후 실시해야 함
+
+![슬라이드 60](../images/ch04/slide_60.png){width=100%}
+
+---
+
+## 공정능력지수와 Sigma Level {#capability-index}
+
+![슬라이드 61](../images/ch04/slide_61.png){width=100%}
+
+### 공정능력지수 (Process Capability Index)
+
+- **규격한계의 범위**: USL – LSL로 표현, 허용오차 또는 공차라고 말함
+- **공정산포의 정도**: 정규분포의 가정하에서 평균으로부터 ±3σ의 범위인 6σ를 사용
+- **종류**: Cp, Cpk, (Cpm, Cpmk), Pp, Ppk 등
+
+### Sigma Level (시그마 수준)
+
+- 고전적 공정능력지수의 **단점을 보완**한 것
+- 표준화된 정규분포의 역 누적 확률 함수와 그 형태가 비슷하여 **"Z-값"**이라고도 함
+
+**공정능력을 파악하는 이유:**
+
+- 양품 생산능력에 대한 **정량화**
+- 개선효과를 비교할 수 있는 **기준으로 활용**
+- 타사, 타 부문과의 **수준 비교**
+- 기술 혹은 관리 중 **어느 쪽에 문제**가 있는지 판정
+
+---
+
+### 공정능력분석의 종류
+
+![슬라이드 62](../images/ch04/slide_62.png){width=100%}
+
+| Data 유형 | 기본 지표 | 공통 지표 | 전제 조건 |
+|-----------|----------|----------|----------|
+| **연속형** (Continuous) | Cp, Cpk, Pp, Ppk | Z(Bench)-Value (ST, LT), Zshift | 공정이 안정되어 있고 정규성 만족 |
+| **이산형** (Attribute) | DPU, DPO, DPMO, 불량률, PPM | Sigma-level, RTY | 불량/양품에 대한 명확한 정의, 결함은 Unit 내에서 랜덤 발생 |
+
+---
+
+### 공정능력지수: 고전적 접근 {#classical-index}
+
+![슬라이드 63](../images/ch04/slide_63.png){width=100%}
+
+| 지수 | 특징 |
+|------|------|
+| **Cp** | 프로세스의 **산포**에 의해 결정. 치우침을 반영하지 못함. 분포의 평균이 규격한계의 정중앙에 있는 경우에 한해 유용 |
+| **Cpk** | 프로세스 평균의 **치우침을 반영**. 양쪽 규격인 경우, 불량 비율이 큰 상한 또는 하한의 함수 |
+| **Cpm** | Target이 규격한계의 정중앙이 아닌 경우에 유용. 프로세스의 산포가 작은 경우, Cpk보다 **민감하게 치우침을 반영** |
 
 $$C_p = \frac{USL - LSL}{6\sigma_{within}}$$
 
 $$C_{pk} = \min\left(\frac{USL - \bar{X}}{3\sigma_{within}}, \frac{\bar{X} - LSL}{3\sigma_{within}}\right)$$
 
-### 장기 능력 (Pp, Ppk) - Overall 변동 기반
+#### 공정능력지수의 비교와 판정
 
-$$P_p = \frac{USL - LSL}{6\sigma_{overall}}$$
+![슬라이드 64](../images/ch04/slide_64.png){width=100%}
 
-$$P_{pk} = \min\left(\frac{USL - \bar{X}}{3\sigma_{overall}}, \frac{\bar{X} - LSL}{3\sigma_{overall}}\right)$$
+- 프로세스가 바람직하다면, **모든 지수 값이 비슷하다**
+- 각 지수 값이 서로 상이하면 할수록, 프로세스는 **개선이 필요**하다
 
-::: {.callout-tip title="Cpk vs Ppk 차이" collapse="true"}
-**핵심 차이**: 사용하는 표준편차의 종류
-
+::: {.callout-note title="Cp/Cpk vs Pp/Ppk" collapse="true"}
 | | Cp/Cpk | Pp/Ppk |
 |-|--------|--------|
-| 표준편차 | Within (단기, Rbar/d2) | Overall (전체 표준편차) |
-| 의미 | 공정의 **잠재** 능력 | 공정의 **실제** 성과 |
-| 관리도 | 관리상태 가정 | 가정 없음 |
+| **표준편차** | σ_within (단기, Rbar/d2) | σ_overall (전체 표준편차) |
+| **의미** | 공정의 **잠재** 능력 | 공정의 **실제** 성과 |
 
-**비유**:
-- Cpk = 최상의 날씨에서 차의 최고 속도 (잠재 능력)
-- Ppk = 일년 동안 평균 주행 속도 (실제 성과)
-
-Cp/Pp의 차이가 크면 공정에 특수원인이 존재한다는 신호입니다.
+1. σ_overall에는 군내 변동과 군간 변동이 모두 포함되어 계산되므로, 군내 변동만을 고려한 σ_within보다 큰 값이 되는 것이 일반적 → **Pp/Ppk 값은 Cp/Cpk 값보다 작은 값**으로 나타남
+2. 신제품 개발 시 양산 단계에서 Cpk=1.33 이상 확보를 위해, 개발단계에서는 **Ppk=1.67 이상** 확보해야 함
 :::
 
-## 판정 기준
+---
+
+## 공정능력 – Z 값 {#z-value}
+
+![슬라이드 65](../images/ch04/slide_65.png){width=100%}
+
+| 구분 | Within Capability | Overall Capability |
+|------|-------------------|-------------------|
+| **반영 변동** | 군내 변동만 | 군내/군간 변동 전체 |
+| **평균 가정** | Target에 정확히 일치 | 실제 평균 사용 |
+| **의미** | 현재 프로세스의 **최상의 능력** | **고객 관점**의 프로세스 능력 |
+| **능력 좌우** | 군내 변동이 능력 좌우 | 군내 변동 / 군간 변동이 능력 좌우 |
+
+Cp나 Pp 값은 연속형 Data이면서 Spec이 주어진 경우에 제한적으로 사용할 수 있는 값인 반면, **Z값은 Data의 속성(연속형, 이산형)에 상관없이 구할 수 있어** Project Y의 현수준을 표현할 때 **Sigma level(Z값)로 통일**하여 사용합니다.
+
+### Z값 상세 설명
+
+![슬라이드 66](../images/ch04/slide_66.png){width=100%}
+
+::: {.callout-important title="Zst와 Zlt의 정의"}
+- **Zst (단기/within 공정능력)**: 어느 공정이 매우 짧은 시간(단기이며 상대적 개념) 동안에 공정의 각종 변동요인이 거의 없다고 가정한 매우 이상적인 경우의 공정능력. 평균 이동(치우침)을 유발하는 이상원인이 없고 **우연원인만 존재**하므로 평균은 Target과 정확히 일치한다고 가정. 계산식에 **Target**을, 표준편차는 **σ_within**을 사용.
+
+- **Zlt (장기/overall 공정능력)**: 장기간에 걸쳐서 공정의 각종 변동(5M1E)이 충분히 반영된 데이터로부터 구한 공정능력. 계산식에 **평균(x̄)**을 그대로 사용하고, 표준편차는 **σ_overall**을 사용. Zlt에는 우연원인과 이상원인이 모두 포함.
+:::
+
+### ZBench의 정의
+
+![슬라이드 67](../images/ch04/slide_67.png){width=100%}
+
+**ZBench**는 양쪽의 불량률을 합하여 한쪽으로 나타냈을 때의 Z값입니다.
+
+$$P_{TOTAL} = P_{LSL} + P_{USL}$$
+
+$$Z_{Bench} = \Phi^{-1}(1 - P_{TOTAL})$$
+
+- 일반적으로 **σ-level이란 ZBench된 ZST값**을 의미함
+- Z-값은 프로세스의 능력을 비교 가능하도록 표현하는 값이며, **클수록 프로세스의 능력이 좋음**을 의미
+- 프로세스의 **시그마 수준**이라 부르며, 이는 공정의 산포를 나타내는 "시그마-표준편차"와 혼동되어서는 안 됨
+
+### Why ZBench?
+
+![슬라이드 68](../images/ch04/slide_68.png){width=100%}
+
+Z값은 양측 규격 또는 단측 규격, 평균의 이동(치우침) 여부, 장기/단기 Data 등에 따라 여러 가지 형태로 나타날 수 있으므로, 이러한 요인들에 영향을 받지 않는 **하나의 통일되고 표준화된 공정능력지수**가 필요합니다.
+
+| 표준편차 종류 | ZBench 분류 |
+|-------------|------------|
+| **단기표준편차 (σST)** | ZBench → Zbench.ST |
+| **장기표준편차 (σLT)** | ZBench → Zbench.LT (ZST = ZLT + 1.5) |
+
+::: {.callout-note}
+설계/공정의 **σ-level**이란 ZBench된 ZST값을 의미합니다. 단측 규격인 경우는 구해진 Z값 자체가 Zbench 값이 됩니다.
+:::
+
+### 장단기 공정능력 Z값 계산
+
+![슬라이드 69](../images/ch04/slide_69.png){width=100%}
+
+::: {.callout-warning title="주의"}
+- ZST와 ZLT는 **Rational Subgrouping Plan에 의해 수집된 데이터일 경우에만** 구분하여 계산이 가능
+- RSP 외의 방법으로 수집된 데이터는 수집 기간에 관계없이 ZST와 ZLT를 구분하여 계산할 수 없고, **Zst보다는 Zlt를 사용**하는 것이 바람직
+- Rational Subgroup으로 샘플링되지 않았다면 **Z값**으로 표현
+:::
+
+### Z값 계산 사례
+
+![슬라이드 70](../images/ch04/slide_70.png){width=100%}
+
+::: {.callout-tip title="양측 규격 Z값 계산 사례" collapse="true"}
+안정된 프로세스로부터 랜덤하게 수집된 데이터의 요약 값:
+
+- (평균, 표준편차) = (122.5, 5.5)
+- 규격한계: (LSL, Target, USL) = (115, 120, 125)
+
+**Minitab 경로:** Calc > Probability Dist. : From Standard Normal Distribution
+:::
+
+![슬라이드 71](../images/ch04/slide_71.png){width=100%}
+
+::: {.callout-tip title="단측 규격 Z값 계산 사례" collapse="true"}
+**USL Only**: (평균, 표준편차) = (102.5, 10.2), USL = 125
+
+**LSL Only**: (평균, 표준편차) = (112.5, 10.2), LSL = 105
+
+단측 규격에서 Rational Subgrouping이 되어도 **목표값(Target)이 주어진 경우에만** 장단기 구분이 가능합니다. 그 외는 Z값으로 표현합니다.
+:::
+
+### Zshift 1.5σ에 대한 고찰
+
+![슬라이드 72](../images/ch04/slide_72.png){width=100%}
+
+::: {.callout-note title="Zshift 1.5σ란?" collapse="true"}
+Six Sigma에서 단기와 장기의 공정능력 차이를 말할 때 $Z_{shift} = Z_{ST} - Z_{LT}$로 계산됩니다.
+
+- 연속형 Data이면서 RSP 방법으로 Data가 수집된 경우에는 직접 계산 가능
+- RSP 방법이 안 되었거나 이산형(불량률, RTY 등)에 대해서는 장기공정 치우침 값으로 **1.5σ만큼 Shift될 수 있다는 가정**을 사용
+
+**1.5라는 값**은 수학적으로 유도/증명할 수 있는 값이 아니고, Six Sigma를 도입하면서 **약속한 값**입니다. 과거의 다양한 경험적 Data를 살펴본 결과 1.5σ 정도를 고려하면 약 80% 이상이 그 안에 포함된다는 사실을 확인하고 정의했다는 설이 있습니다.
+
+**사례 1**: 개선 결과 Zst = 6.0 수준 달성 → 시간이 지나면 1.5만큼 치우침 발생 가능 → 장기적으로 4.5σ 수준 → 불량률 3.4 ppm
+
+**사례 2**: 현재 공정 평균 불량률 1.0% → Zlt = 2.32 → Zshift 1.5를 더하여 **3.82σ 수준**
+:::
+
+---
+
+## 공정능력분석 실습 {#practice}
+
+### 양측 규격 (Two-sided) - RSP 데이터
+
+![슬라이드 73](../images/ch04/slide_73.png){width=100%}
+
+**실습 조건 (STB 2.6):**
+
+- 측정시스템이 검증된 프로세스로부터 RSP 방법으로 데이터 수집
+- 군내 표본의 크기: n = 5, 군의 수: g = 30
+- 규격한계: (LSL, Target, USL) = (15.7, 16.5, 17.3)
+
+**분석 절차:**
+
+| Step | 활동 | 도구 |
+|------|------|------|
+| **Step 1** | 정규성과 안정성 확인 | Capability Sixpack > Normal |
+| **Step 2** | ZBench.LT 계산 (Target 미지정) | Capability Analysis > Normal |
+| **Step 3** | ZBench.ST 계산 (Target 지정) | Capability Analysis > Normal |
+| **계산** | ZShift = ZBench.ST - ZBench.LT | |
+
+![슬라이드 74](../images/ch04/slide_74.png){width=100%}
+
+**Minitab 경로:** Stat > Quality Tools > Capability Six Pack > Normal
+
+#### (1) Check Stability & Normality
+
+![슬라이드 75](../images/ch04/slide_75.png){width=100%}
+
+- 현재 프로세스는 **안정적이라고 보기 어려움** — 이상원인으로 인한 관리이탈 발생
+- 정규성은 만족 (p = 0.188 ≥ 0.05)
+- 11~15 군과 16~20 군 간에 군간 변동(평균값의 차이)이 큰 것으로 보임
+- **원인을 찾아 개선 후** 프로세스의 능력을 분석하는 것이 바람직
+
+#### 교정 후 재수집
+
+![슬라이드 76](../images/ch04/slide_76.png){width=100%}
+
+Six Pack 진단 후 이상원인(측정 방법 오류)을 확인하고 교정한 후, 동일하게 RSP 방법으로 데이터를 다시 수집. 현재 프로세스는 **정규성을 만족하고 안정상태**에 있음.
+
+#### (2) ZBench.LT – Overall Capability
+
+![슬라이드 77](../images/ch04/slide_77.png){width=100%}
+
+**Minitab 경로:** Stat > Quality Tools > Capability Analysis > Normal
+
+![슬라이드 78](../images/ch04/slide_78.png){width=100%}
+
+**결과 해석:**
+
+- Overall Capability의 **Z.Bench = 2.13** → 이 값을 현수준으로 함
+- 장기 공정능력(σLT)에서 치우침을 고려하여(Ppk) ZLT값 산출
+- Ppk: 치우침을 고려한 실제적 공정능력지수
+
+#### (3) ZBench.ST – Potential (Within) Capability
+
+![슬라이드 79](../images/ch04/slide_79.png){width=100%}
+
+**Historical Mean에 Target값 입력** → Within의 ZBench를 ZST로 사용
+
+::: {.callout-note title="Target 입력 시 주의" collapse="true"}
+Target 입력 시 Data의 평균은 무시되며, Target에 대한 장단기 표준편차로만 계산됩니다. 코너샘플링 또는 소수 시료로 공정능력 산출 시 **신뢰구간을 고려한 공정능력**을 사용할 수 있습니다.
+:::
+
+![슬라이드 80](../images/ch04/slide_80.png){width=100%}
+
+**Z값 산출 결과:**
+
+| 구분 | 계산 방법 | 결과 |
+|------|----------|------|
+| **ZST (단기)** | Historical Mean에 Target값 입력, Within의 ZBench | 2.73 (치우침 영향 無) |
+| **ZLT (장기)** | Historical Mean에 Target값 미입력, Overall의 ZBench | 2.13 (치우침 영향 有) |
+| **ZShift** | ZST - ZLT | 2.73 – 2.13 = **0.6** |
+
+![슬라이드 81](../images/ch04/slide_81.png){width=100%}
+
+::: {.callout-tip title="Zst 계산시 Target 값을 넣어주는 이유" collapse="true"}
+Data의 평균(=16.2961)이 Target에 정확히 일치했다는 가정이 Zst이므로, Spec을 0.2039(=16.5 – 16.2961)만큼씩 조정하여 보면 동일한 결과가 됨을 알 수 있습니다.
+:::
+
+### 단측 규격 (One-sided)
+
+![슬라이드 82](../images/ch04/slide_82.png){width=100%}
+
+동일한 Data를 활용하여 **단측 규격**인 경우의 공정능력 계산:
+
+- 군내 표본의 크기: n = 5, 군의 수: g = 30
+- 규격한계: USL = 16.7
+- **Overall Z.Bench값**을 현수준으로 함
+- LSL만 있는 경우에도 동일하게 적용
+
+---
+
+## 비정규분포의 현수준 파악 {#nonnormal}
+
+![슬라이드 83](../images/ch04/slide_83.png){width=100%}
+
+**실습 조건 (STB 2.8):**
+
+- OO제품의 신뢰성(MTBF)과 관련된 메모리 사용량
+- 군내 표본의 크기: n = 5, 군의 수: g = 30
+- USL = 512
+
+### (1) Normality Test
+
+![슬라이드 84](../images/ch04/slide_84.png){width=100%}
+
+**Minitab 경로:** Stat > Basic Statistics > Normality Test
+
+- 유의수준 5%하에서 **정규성에 위배**
+- 점들이 찍힌 모양으로 볼 때, 오른쪽으로 길게 늘어진 **왜도 현상** 추정
+- MTBF와 관련이 있으므로, **수명/신뢰성 분포** 적합도 확인 필요 (Weibull or Exponential Distribution)
+
+### (2) Individual Distribution Identification
+
+![슬라이드 85](../images/ch04/slide_85.png){width=100%}
+
+**Minitab 경로:** Stat > Quality Tools > Individual Distribution Identification
+
+- 수명/신뢰성 분포에 해당하는 Exponential, Weibull Distribution을 모두 선택하여 분석
+
+![슬라이드 86](../images/ch04/slide_86.png){width=100%}
+
+- 유의수준 5%하에서 **'3-Parameter Weibull Distribution'**에 적합하다고 할 수 있음
+- 관측된 대부분의 Data가 95% 신뢰구간에 있으므로 적합함을 추정
+
+### (3) Capability Analysis with Weibull Distribution
+
+![슬라이드 87](../images/ch04/slide_87.png){width=100%}
+
+**Minitab 경로:** Stat > Quality Tools > Capability Analysis > Nonnormal
+
+- 적합한 분포(3-Parameter Weibull) 지정 후 Spec 입력
+
+![슬라이드 88](../images/ch04/slide_88.png){width=100%}
+
+**결과:** 현수준 **Z.Bench = 2.63**
+
+1,000번 실행 중에 4번 정도는 메모리 관리에 의한 무감/리셋/오동작이 발생할 가능성이 있습니다.
+
+::: {.callout-note title="Z.Bench ≠ Z.USL인 이유" collapse="true"}
+계산 방식의 차이입니다:
+
+- Z.Bench: MTB(Minitab) method
+- Z.USL: ISO method
+
+자세한 내용은 'Minitab Methods and Formulas' 참조
+:::
+
+---
+
+## 이산형 Data의 현수준 파악 {#discrete-capability}
+
+![슬라이드 89](../images/ch04/slide_89.png){width=100%}
+
+고객의 실질적 요구를 반영하는 **결함(Defect)의 정의**가 중요합니다.
+
+**가정:** 데이터는 우연원인과 중요한 이상원인을 포함할 수 있도록 충분히 많은 수가 수집되어야 하며, 결함들은 Unit에서 랜덤하게 분포하고, 각 Parts/Process Step에서 상호 독립이다.
+
+| 단계 | 기본 지표 | 공통 지표 |
+|------|----------|----------|
+| Each Process Step | DPU, DPO, DPMO | ZLT → ZST = ZLT + 1.5 |
+| Partial/Whole Process Steps | YFT, YRT, YNA | Sigma Level |
+
+### DPU, DPO, DPMO
+
+![슬라이드 90](../images/ch04/slide_90.png){width=100%}
+
+| 용어 | 정의 |
+|------|------|
+| **결함 (Defect)** | 고객의 불만족을 유도하는 모든 것 |
+| **단위 (Unit)** | 검사나 작업의 기준이 되는 최소 수량 |
+| **기회 (Opportunity) 수** | 결함이 될 수 있는 모든 가능한 경우의 수 |
+| **불량 (Defective)** | 하나 이상의 결함을 가진 Unit |
+
+$$DPU = \frac{\text{총 결함 수}}{\text{총 Unit 수}}$$
+
+$$DPO = \frac{\text{총 결함 수}}{\text{총 Unit 수} \times \text{기회 수}}$$
+
+$$DPMO = DPO \times 1{,}000{,}000$$
+
+::: {.callout-note title="기회(Opportunity) 결정" collapse="true"}
+- 기회는 **실제 결함을 발생시킬 수 있는 경우**이어야 합니다
+- 기회의 수는 개발, 생산, 품질 등 관련 조직이 **협의 후 결정** (현실적으로 매우 어려움)
+- 불량률: 전체 중 하나 이상의 결함을 포함하는 Unit의 비율
+:::
+
+### DPU/DPO/DPMO 계산 실습
+
+![슬라이드 91](../images/ch04/slide_91.png){width=100%}
+
+---
+
+### 수율 (Yields) {#yields}
+
+![슬라이드 92](../images/ch04/slide_92.png){width=100%}
+
+수율(Yield)이란 전체 중에서 올바른 것(양품)의 비율입니다.
+
+| 구분 | Traditional | Six Sigma |
+|------|------------|-----------|
+| **관점** | 프로세스의 최종 결과만 고려 | 프로세스의 **각 단계와 최종 결과** 모두 고려 |
+| **복잡도** | 프로세스의 단계를 반영하지 않음 | 프로세스의 **단계(복잡도)를 반영** |
+| **재작업** | 재작업 및 부품 폐기를 무시 | 재작업 및 부품 폐기를 **반영** |
+| **기준** | 최종 제품/서비스에서 무결함이면 만족 | 처음부터 올바른 **무결함을 중시** |
+
+- **YFT** (First-Time Yield): 초기 수율
+- **YRT** (Rolled Throughput Yield): 누적수율
+- **YNA** (Normalized Average Yield): 평균 수율
+
+#### 초기 수율 (YFT)
+
+![슬라이드 93](../images/ch04/slide_93.png){width=100%}
+
+프로세스의 각 단계에서 **재작업 없이 통과할 수율**입니다.
+
+$$Y_{FT} = \frac{\text{양품 수}}{\text{투입 수}}$$
+
+**DPU로 계산:** $Y_{FT} = e^{-DPU}$
+
+**DPO로 계산:** $Y_{FT} = (1-DPO)^{Opp}$
+
+#### Sigma Level 계산법
+
+![슬라이드 94](../images/ch04/slide_94.png){width=100%}
+
+::: {.callout-tip title="Sigma Level 계산 사례" collapse="true"}
+검사결과 defect=3, opp=10, unit=20이라 할 때:
+
+1. **불량률 기준**: 3/20 = 0.15(15%) → Z = 1.04 → Sigma level = **2.54σ**
+2. **DPU 기준**: dpu = 3/20 = 0.15, 불량률 = 1-e^(-0.15) = 13.93% → Z = 1.08 → Sigma level = **2.58σ**
+3. **DPO 기준**: DPO = 3/(10×20) = 0.015(1.5%) → Z = 2.17 → Sigma level = **3.67σ**
+4. **DPMO**: DPO와 단위만 ppm으로 조정 → Sigma level은 DPO와 동일
+
+$$Z_{LT} = \Phi^{-1}(DPO), \quad Z_{ST} = Z_{LT} + 1.5$$
+:::
+
+#### 누적수율 (YRT)
+
+![슬라이드 95](../images/ch04/slide_95.png){width=100%}
+
+하나의 제품/서비스가 전체 프로세스에서 **단 한 번의 결함도 없이 통과될 수율**입니다.
+
+$$Y_{RT} = Y_{FT1} \times Y_{FT2} \times \cdots \times Y_{FTn}$$
+
+**예시**: Step1 YFT = 0.85, Step2 YFT = 0.95 → YRT = 0.85 × 0.95 = **0.81**
+
+#### 평균 수율 (YNA)
+
+![슬라이드 96](../images/ch04/slide_96.png){width=100%}
+
+누적수율이 계산 가능한 프로세스에서 **단계별 평균 수율**입니다.
+
+$$Y_{NA} = (Y_{RT})^{1/n}$$
+
+| | Process 1 (6단계) | Process 2 (2단계) |
+|-|------------------|------------------|
+| **각 단계 수율** | 0.90 × 6단계 | 0.85, 0.80 |
+| **YRT** | (0.9)^6 = 0.53 | 0.85 × 0.80 = 0.68 |
+| **YNA** | (0.53)^(1/6) = **0.90** | (0.68)^(1/2) = **0.825** |
+
+→ Process 1이 각 단계의 품질 수준은 더 높음
+
+### 수율 계산 종합 사례
+
+![슬라이드 97](../images/ch04/slide_97.png){width=100%}
+
+::: {.callout-tip title="종합 사례 풀이" collapse="true"}
+
+![슬라이드 98](../images/ch04/slide_98.png){width=100%}
+
+**1. 각 단계의 초기 수율:**
+
+| 단계 | 계산 | YFT |
+|------|------|-----|
+| **구매** | 0.99×0.45 + 0.85×0.25 + 0.90×0.30 | 0.928 |
+| **조립1** | 190/200 | 0.95 |
+| **조립2** | 180/195 | 0.923 |
+| **포장** | 175/185 | 0.946 |
+
+**2. 조립 단계의 누적수율, 평균수율, Sigma level:**
+
+- YRT = 0.95 × 0.923 = **0.877**
+- YNA = (0.877)^(1/2) = **0.9364**
+- Sigma Level = (1-YNA = 0.0636)의 Z값 + 1.5 = 1.53 + 1.5 = **3.03σ**
+
+**3. 전체 단계:**
+
+- YRT = 0.928 × 0.95 × 0.923 × 0.946 = **0.77**
+- YNA = (0.77)^(1/4) = **0.9367**
+- Sigma Level = 1.53 + 1.5 = **3.03σ**
+:::
+
+---
+
+## 판정 기준 요약
 
 | 지수 | 기준값 | 판정 |
 |------|--------|------|
@@ -45,30 +570,14 @@ Cp/Pp의 차이가 크면 공정에 특수원인이 존재한다는 신호입니
 | Cpk ≥ 1.00 | 3시그마 수준 | 최소 허용 |
 | Cpk < 1.00 | 3시그마 미만 | 개선 필요 |
 
-## Z값 (시그마 수준)
+## Z값과 불량률 관계
 
-$$Z_{st} = C_{pk} \times 3 \quad \text{(단기 시그마 수준)}$$
-
-$$Z_{lt} = Z_{st} - 1.5 \quad \text{(장기 시그마 수준, 1.5σ shift 반영)}$$
-
-::: {.callout-tip title="Z값과 불량률 관계" collapse="true"}
-**Z값** = 규격 한계까지 표준편차 단위의 거리
-
-| Zst | Zlt | PPM |
-|-----|-----|-----|
+| Zst | Zlt (=Zst-1.5) | PPM |
+|-----|----------------|-----|
 | 6.0 | 4.5 | 3.4 |
 | 5.0 | 3.5 | 233 |
 | 4.0 | 2.5 | 6,210 |
 | 3.0 | 1.5 | 66,807 |
-
-**계산**: 불량률 = P(Z < -Zpk) + P(Z > Zpk) = 2 × Φ(-|Zpk|)
-:::
-
-## 비정규 공정능력분석
-
-데이터가 정규분포를 따르지 않는 경우:
-- 데이터 변환 (Box-Cox, Johnson)
-- 비모수적 방법 (백분위수 기반)
 
 ---
 
@@ -77,9 +586,8 @@ $$Z_{lt} = Z_{st} - 1.5 \quad \text{(장기 시그마 수준, 1.5σ shift 반영
 <div class="streamlit-embed">
 <iframe
   src="https://sixsigma-apps.streamlit.app/Capability?embed=true"
-  height="700"
-  width="100%"
-  frameborder="0">
+  height="800"
+  style="width:100%;border:none;">
 </iframe>
 </div>
 

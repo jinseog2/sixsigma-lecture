@@ -2,59 +2,187 @@
 title: "분산분석 (ANOVA)"
 ---
 
-## ANOVA 개요
+## ANOVA 개요 {#anova-overview}
 
-**분산분석(Analysis of Variance, ANOVA)** 은 3개 이상 집단의 평균을 동시에 비교하는 통계 기법입니다.
+![슬라이드 58](../images/ch05/slide_58.png){width=100%}
 
-$$H_0: \mu_1 = \mu_2 = \mu_3 = \cdots = \mu_k$$
-$$H_1: \text{적어도 하나의 집단 평균이 다르다}$$
+**ANOVA (Analysis of Variance, 분산분석)**: 2개 이상의 집단에 대한 평균의 동일성 여부를 확인하고자 할 때 사용
 
-::: {.callout-tip title="ANOVA 원리" collapse="true"}
-**핵심 아이디어**: 전체 변동을 "집단 간 변동"과 "집단 내 변동"으로 분해
+**가설:**
+
+- H₀: 인자에 의한 효과의 평균은 모두 동일하다 — $\mu_1 = \mu_2 = \mu_3 = \cdots = \mu_n$
+- H₁: 인자에 의한 효과의 평균이 모두 동일하지는 않다 — 적어도 하나는 차이가 있다
+
+**원리:** 총변동을 각 원인별 변동으로 직교분해하고, **변동비**를 이용하여 원인별 평균차이 여부를 검정
+
+- 인자의 각 수준간 평균값 차이에 의한 변동(SSB)이 각 수준 내에서 발생하는 변동(SSW)보다 더 큰지를 분석
+- 요인에 의한 변화를 **군간변동**, 오차항을 **군내변동**이라 하면 이들의 비(군간변동/군내변동)로 산포의 크기를 나타냄
+
+**절차:**
+
+```
+Graph 분석 → 정규성 검정 → 등분산 검정 → ANOVA → Residual Analysis
+(평균값의      (Normality    (Test for Equal  (분산분석을    (잔차분석)
+대략적 차이     Test)         Variances)       통한 평균치
+관찰)                                          검정)
+```
+
+::: {.callout-note title="주요 용어" collapse="true"}
+- **인자(Factor)**: 실험에 있어서 특성치 "Y"에 영향을 준다고 생각되는 원인(x's)
+- **수준(Level)**: 실험을 하기 위한 인자의 설정 조건 (예: 가열시간 30분/40분, 온도 90°C/100°C 등)
+:::
+
+::: {.callout-warning}
+- ANOVA를 통해 2집단의 평균비교도 가능하지만, 2집단의 경우에는 **2-Sample t 검정이 선호**됩니다
+- H₀가 기각된다고 해서 효과들이 **모두 다르다는 의미가 아닙니다**
+- H₀가 기각되는 경우, 실무적 지식(또는 Multiple Comparison)을 통해 어떤 집단들의 평균이 서로 다른지를 확인
+- 오차의 독립성, 등분산성, 정규성을 만족하지 않는 경우, 검정 결과에 대한 **타당성이 떨어집니다**
+:::
+
+---
+
+## 분산분석의 종류 {#anova-types}
+
+![슬라이드 59](../images/ch05/slide_59.png){width=100%}
+
+| 종류 | 설명 |
+|------|------|
+| **One-Way ANOVA (일원분산분석)** | 1개의 인자에 대하여 수준수가 2개 이상 |
+| **Balanced ANOVA (균형 분산분석)** | 2개 이상의 인자에 대하여 수준별 반복수가 동일한 경우 |
+| **GLM (General Linear Model)** | 두 개 이상의 인자에 대하여 인자별 수준수나 Data 수가 Balanced된 경우 또는 되지 않은 경우 모두 사용 |
 
 $$SS_{Total} = SS_{Between} + SS_{Within}$$
 
-F = 집단 간 평균 제곱(MS_Between) / 집단 내 평균 제곱(MS_Within)
+### ANOVA Table 구조
 
-F값이 크면 집단 간 차이가 유의미하다는 증거
+![슬라이드 60](../images/ch05/slide_60.png){width=100%}
 
-**추천 영상**: [StatQuest - ANOVA](https://www.youtube.com/watch?v=oOuu8IBd-yo)
+| Source | DF | SS | MS | F | P |
+|--------|---:|---:|---:|---:|---:|
+| **Between** (인자) | n-1 | SSB | MSB = SSB/DFB | MSB/MSW | p-value |
+| **Within** (오차) | n(m-1) | SSW | MSW = SSW/DFW | | |
+| **Total** | nm-1 | SST | | | |
+
+::: {.callout-tip title="ANOVA Table 각 항목의 의미" collapse="true"}
+- **(1) SSB (군간변동)**: 인자의 수준 변화에 의한 변동량
+- **(2) SSW (군내변동)**: 오차에 의한 변동량
+- **(3) SST (전체변동)**: 전체 변동량
+- **(4) DF_B**: 인자의 자유도 (인자의 수준수 - 1)
+- **(5) DF_W**: 오차의 자유도 (전체 자유도 - 인자 자유도)
+- **(10) MSB**: 인자 수준의 변동에 따른 변동량의 평균값
+- **(11) MSW**: 오차의 변동에 따른 변동량의 평균값
+- **(12) F**: 인자 평균 변동량과 오차 평균 변동량의 비율
 :::
 
-## One-Way ANOVA
+---
 
-하나의 인자(Factor)가 반응변수에 미치는 영향 분석
+## One-Way ANOVA 실습 {#one-way-anova}
 
-### ANOVA 테이블
+![슬라이드 61](../images/ch05/slide_61.png){width=100%}
 
-| 출처 | SS | df | MS | F | p-value |
-|------|-----|-----|-----|---|---------|
-| 인자 | SS_A | k-1 | MS_A | F | p |
-| 오차 | SS_E | N-k | MS_E | | |
-| 합계 | SS_T | N-1 | | | |
+**실습 조건 (STB 3.4):**
 
-### 가정 사항
+'Strength'에 영향을 줄 수 있는 가인자('C.RPM', 'Delay.T', 'F.Temperature')를 Data Resume에 기록하였습니다. 먼저 치명 인자를 선정할 목적으로, 각 인자의 값들을 **범주화**하여 대략적으로 기록하였습니다.
 
-1. **독립성**: 각 관측값은 독립
-2. **정규성**: 각 집단의 데이터가 정규분포
-3. **등분산성**: 모든 집단의 분산이 동일
+**Minitab 경로:** Stat > ANOVA > Main Effect Plot
+
+### (1) Main Effect Plot
+
+![슬라이드 62](../images/ch05/slide_62.png){width=100%}
+
+'Delay.T'에 따라 'Strength'의 평균이 차이가 있는지 확인합니다. Delay.T가 4T일 때 평균값이 높음을 알 수 있습니다.
+
+### (2) Normality Test
+
+![슬라이드 63](../images/ch05/slide_63.png){width=100%}
+
+**Minitab 경로:** Graph > Probability Plot
+
+각 수준별 데이터의 정규성을 확인합니다. 다중그래프로 동일 그래프에 겹쳐서 확인한 결과, **정규성을 만족**합니다.
+
+### (3) Test for Equal Variances
+
+![슬라이드 64](../images/ch05/slide_64.png){width=100%}
+
+**Minitab 경로:** Stat > ANOVA > Test for Equal Variances
+
+정규성 검정 결과를 반영하여 등분산 검정을 수행합니다. P-value가 0.05보다 크므로 **등분산한다고 할 수 있습니다.**
+
+### (4) One-Way ANOVA 결과
+
+![슬라이드 65](../images/ch05/slide_65.png){width=100%}
+
+**결과:** P-value ≥ 0.05이고 유의차 없음. Delay.T는 Strength에 통계적으로 유의한 영향을 주지 않는 것으로 판단됩니다.
+
+---
+
+## GLM (General Linear Model) {#glm}
+
+![슬라이드 66](../images/ch05/slide_66.png){width=100%}
+
+**목적:** 'Delay.T', 'F.Temperature', 'C.RPM'에 따라 'Strength'의 평균이 차이가 있는지 여러 인자에 대한 수준별 평균치를 동시 검정
+
+**Minitab 경로:** Stat > ANOVA > General Linear Model > Fit General Linear Model
+
+::: {.callout-tip title="잔차 진단의 종류" collapse="true"}
+| 잔차 종류 | 적용 상황 |
+|-----------|----------|
+| **Regular** | 실제 단위가 적용된 잔차 |
+| **Standardized** | 실험과 같이 통제된 상황에서 데이터가 수집된 경우 |
+| **Deleted** | 관측연구와 같이 통제되지 않은 상황에서 데이터가 수집된 경우 |
+
+잔차 진단을 통해 ANOVA 분석 결과의 타당성을 확인할 수 있으며, 이상점, 군집 등을 구별해낼 수 있습니다. Data 수집 환경을 고려하여 잔차 종류를 결정하면 됩니다.
+:::
+
+### GLM 결과 해석
+
+![슬라이드 67](../images/ch05/slide_67.png){width=100%}
+
+**결과:** 유의수준 5%하에서 평균의 차이가 없다고 할 수 없습니다.
+
+**잔차 진단:**
+
+| 항목 | 바람직한 형태 | 비고 |
+|------|-------------|------|
+| **정규성** | Normal Probability Plot 직선 부근에 모여 있는 형태, Histogram은 양쪽 대칭 종 모형 | |
+| **등분산성** | Fitted Value 중심으로 균등하게 분산이 분포되는 형태 | |
+| **독립성** | 랜덤 산점도 형태, 데이터 수집 순서로 확인, 특정 패턴 없어야 함 | |
+
+- 이상점(12번, 30번 데이터)이 있으며, 정규성, 등분산성, 독립성 위배에 영향을 주고 있음
+- 이상점 제거 유무는 **Data Resume를 통해 판단**해야 합니다
+
+::: {.callout-note title="독립성 가설검정" collapse="true"}
+독립성 여부를 가설검정으로 확인하고 싶으면 잔차를 저장하여 Minitab에서 Stat > Nonparametrics > Runs Test를 수행하면 됩니다.
+:::
+
+### 이상점 제거 방법
+
+![슬라이드 68](../images/ch05/slide_68.png){width=100%}
+
+**이상점을 제거한 새 Worksheet 생성방법:**
+
+1. 오른쪽 마우스를 클릭하여 **Brush** 선택
+2. 모든 이상점을 선택 (Shift Key 활용) → Worksheet에 이상점이 표시됨
+3. Data > **Subset Worksheet** 선택
+4. 이상점이 제거된 새로운 Worksheet 생성
+
+### 이상점 제거 후 재분석
+
+![슬라이드 69](../images/ch05/slide_69.png){width=100%}
+
+이상점 삭제 후 분석한 결과, 유의수준 5%하에서 평균의 차이가 없다고 할 수 없습니다. 비교를 통한 중요인자 확인 시 치명인자 선정이 목적이면 설명력을 확인하지 않아도 됩니다.
+
+---
 
 ## 사후 검정 (Post-Hoc Test)
 
-ANOVA에서 H₀이 기각되면, 어느 집단 쌍이 다른지 파악하기 위해 사후 검정 실시
+ANOVA에서 H₀이 기각되면, 어느 집단 쌍이 다른지 파악하기 위해 사후 검정을 실시합니다.
 
 | 방법 | 특징 |
 |------|------|
-| Tukey HSD | 등분산, 등표본수 가정 시 권장 |
-| Bonferroni | 보수적, 소수의 비교에 적합 |
-| Games-Howell | 등분산 가정 불필요 |
-
-## GLM (General Linear Model)
-
-One-Way ANOVA의 확장. 여러 인자와 공변량을 동시에 분석
-
-- **균형 설계**: 모든 처리 조합에 동일한 반복 수
-- **불균형 설계**: 처리 조합별 반복 수 상이 → GLM 필요
+| **Tukey HSD** | 등분산, 등표본수 가정 시 권장 |
+| **Bonferroni** | 보수적, 소수의 비교에 적합 |
+| **Games-Howell** | 등분산 가정 불필요 |
 
 ---
 
@@ -63,8 +191,14 @@ One-Way ANOVA의 확장. 여러 인자와 공변량을 동시에 분석
 <div class="streamlit-embed">
 <iframe
   src="https://sixsigma-apps.streamlit.app/ANOVA?embed=true"
-  height="700"
-  width="100%"
-  frameborder="0">
+  height="800"
+  style="width:100%;border:none;">
 </iframe>
 </div>
+
+::: {.callout-note title="실습 도구 사용법"}
+1. 데이터 선택 또는 CSV 업로드
+2. 반응변수(Y)와 인자(X) 선택
+3. 분석 유형 선택 (One-Way ANOVA / GLM)
+4. **▶ 분석 실행** → ANOVA Table, 잔차 진단 그래프 확인
+:::

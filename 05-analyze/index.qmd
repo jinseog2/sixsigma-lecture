@@ -2,49 +2,312 @@
 title: "Analyze - 분석 단계"
 ---
 
-## Analyze 단계 개요
+![슬라이드 1](../images/ch05/slide_01.png){width=100%}
 
-Analyze 단계에서는 데이터를 분석하여 문제의 근본 원인(Root Cause)을 파악합니다.
+> **Analyze 단계**: Measure 단계에서 도출된 Project Y의 개선을 위해 잠재인자를 도출하고 가인자(Possible x's)를 선정하여, 선정된 가인자들을 사실(데이터)에 근거한 통계 분석을 통해 치명인자(Vital Few)를 선정하는 단계
 
-## 핵심 질문
+## 0. 개요 {#overview}
 
-> "무엇이 공정 성과에 영향을 미치는가? (Y = f(X)의 X는 무엇인가?)"
+### Analyze 단계의 목적과 절차
 
-## 주요 도구
+![슬라이드 2](../images/ch05/slide_02.png){width=100%}
+
+Analyze 단계에서는 데이터를 분석하여 문제의 근본 원인(Root Cause)을 파악합니다. 핵심 질문은 **"무엇이 공정 성과에 영향을 미치는가? (Y = f(X)의 X는 무엇인가?)"** 입니다.
+
+| 절차 | 방법/도구 | 설명 |
+|------|-----------|------|
+| **잠재인자 도출** | 특성요인도, Logic Tree | 조직의 지혜(Wisdom of Organization)로 모든 원인 도출 |
+| **가인자 선정** | X-Y Matrix, RPN | 전문가 의견, 과거 경험, 이론적 배경으로 주요 원인 선별 |
+| **객관적 사실 수집** | Data Resume, 소급연구/관찰/실험 | 데이터 수집 |
+| **그래프 분석** | 히스토그램, Box Plot, Scatter Plot 등 | 시각적 분석 |
+| **치명인자 선정** | 가설검정, ANOVA, 회귀분석 | 통계적 분석을 통한 Vital Few 선정 |
+
+::: {.callout-tip title="인자 선정의 흐름"}
+```
+잠재인자(Potential Factors) → 가인자(Possible Factors) → 치명인자(Vital Few)
+       모든 원인들              주요 원인 후보            핵심 원인(조절 가능)
+```
+:::
+
+---
+
+## 1. 잠재인자(Potential X's) 도출 {#potential-factors}
+
+### 인자의 종류
+
+![슬라이드 3](../images/ch05/slide_03.png){width=100%}
+
+모든 프로세스에는 많은 요인(잠재 인자)들이 작용되어 Output(Y)에 변동을 발생시킵니다.
+
+$$Y = f(x_1, x_2, \ldots, x_k) + \varepsilon_1 + \varepsilon_2 + \cdots + \varepsilon_n$$
+
+| 인자 유형 | 정의 |
+|-----------|------|
+| **잠재인자(Potential Factors)** | Project Y(Process 변동)에 영향을 줄 수 있는 **모든** 원인들 |
+| **가인자(Possible Factors)** | 잠재인자 중 Project Y에 영향을 줄 것이라고 여겨지는 **주요** 원인들 |
+| **치명인자(Vital Few)** | 가인자 중 Project Y에 영향을 주는 **핵심** 원인들 (반드시 조절 가능한 원인만 선택) |
+
+### 잠재인자 도출 절차
+
+![슬라이드 4](../images/ch05/slide_04.png){width=100%}
+
+Project Y에 조금이라도 영향을 줄 것이라고 생각되는 **모든 인자(요인/원인)들을 도출**하여야 하며, 이를 위해 관련자 전원의 참여가 필요합니다.
+
+::: {.callout-tip title="Tips for Brainstorming"}
+- 프로세스와 연관된 사람들을 가능한 한 많이 참석시킨다
+- 다양한 의견을 수렴한다
+- 도출된 특성들을 측정 가능하도록 논의한다
+- 가능한 문제점을 부각시켜 아이디어를 수렴한다
+:::
+
+### Brainstorming
+
+![슬라이드 5](../images/ch05/slide_05.png){width=100%}
+
+짧은 시간에 다양한 아이디어를 수집/생성하기 위한 집단 토론 방법입니다.
+
+**브레인스토밍 4원칙**
+
+| 원칙 | 설명 |
+|------|------|
+| **전원 참여** | Issue와 관련된 많은 사람들이 참여 |
+| **비판 금지** | 제안된 아이디어를 비판하지 않고, 숙성되지 않은 아이디어도 격려 |
+| **다다익선** | 아이디어의 질보다는 양을 우선시 |
+| **아이디어 편승** | 모든 아이디어를 기록하고, 조합과 개선을 추구 |
+
+**Brainstorming 방법**
+
+- **Free Wheeling**: 참가자들이 순서에 상관없이 자유롭게 아이디어를 발표
+- **Round Robin**: 참가자들이 순서대로 아이디어를 발표
+- **Card Method**: 참가자들이 따로 토의하지 않고 아이디어를 적어서 제출(메모지, 포스트잇 등)
+
+### 특성 요인도 (Fishbone Diagram)
+
+![슬라이드 6](../images/ch05/slide_06.png){width=100%}
+
+특성요인도(Fishbone Diagram)란 어떤 일의 결과(특성)와 그것을 유발시키는 원인(요인)이 서로 어떻게 관계되고 영향을 미치고 있는지를 한눈에 알 수 있도록 물고기 뼈 또는 나뭇가지 모양으로 나타내는 기법입니다.
+
+::: {.callout-note title="작성시 유의 사항"}
+- 결과(문제)가 **왜(Why)** 발생하는가?에 대한 원인을 찾는 방법으로 전개 (Why를 3번 이상 권장)
+- 최하위의 원인을 찾는 단계까지 전개
+- 필요시 특정 항목만 별도로 2차 전개
+- 가인자로 판단되는 요인은 최하위 단계에서 선정하고, 색깔/밑줄/Box 등으로 알기 쉽게 구분
+- 가능한 자세하게 도출하고, 가인자로 선정되지 않은 인자들에 대해서도 반드시 기술적/상황적인 해석을 검토
+:::
+
+### Logic Tree
+
+![슬라이드 7](../images/ch05/slide_07.png){width=100%}
+
+분석을 보다 논리적이고 효율적으로 진행하기 위해 **MECE**의 사고방식에 따라 주요 항목을 Tree 형태로 분해하는 것으로, 논리적 사고의 촉진 및 폭 넓은 아이디어를 창출할 수 있는 방법입니다.
+
+::: {.callout-tip title="MECE란?" collapse="true"}
+**MECE (Mutually Exclusive and Collectively Exhaustive)**
+
+서로 중복되지 않으면서 각각의 합이 상위 요인의 전체가 될 수 있는 요소들의 집합 개념입니다.
+
+**작성 시 유의 사항**
+
+- 전개 항목 간 MECE임을 확인
+- 최하위 요인의 개선이 최상위 개선을 이룰 수 있는가를 기술적으로 고찰
+- 항목에 따라 하위 전개 수준의 차이가 있을 수 있음
+- 가인자로 판단되는 요인은 최하위 단계에서 선정하고, 색깔/밑줄/Box 등으로 구분
+:::
+
+---
+
+## 2. 가인자(Possible X's) 선정 {#possible-factors}
+
+### 가인자 선정 개요
+
+![슬라이드 8](../images/ch05/slide_08.png){width=100%}
+
+도출된 잠재인자(원인)들 중 Project Y에 많은 영향을 줄 것 같은 가능성 높은 인자의 선별이 필요하며, 이를 위해 **조직의 지혜(Wisdom of Organization)** 와 객관적이고 과학적인 사고가 요구됩니다.
+
+| 방법 | 내용 |
+|------|------|
+| **Wisdom of Organization** | 관련 전문가 의견, 과거 경험, 이론적 근거/배경 |
+| **확인 절차** | 팀원의 합의에 의해 결정, 세부 프로세스 맵 등을 통해 확인 |
+| **도구** | X-Y Matrix, RPN(Risk Priority Number) 등 |
+
+::: {.callout-warning}
+검증에 따른 경제성을 고려하되 가능한 한 **많은 인자를 선정**한다.
+:::
+
+### X-Y Matrix
+
+![슬라이드 9](../images/ch05/slide_09.png){width=100%}
+
+여러 개의 반응이나 영향(Y's)과 여러 개의 원인이나 요인(x's)에 대해 상호 관련성 정도를 수치로 점수화하여 중요도에 대한 우선순위를 선정하고자 할 때 사용합니다.
+
+- Y항목에 대해 고객의 관점에서 중요도를 고려하여 **가중치**를 부여
+- x가 Y에 미치는 **영향도**를 점수로 부여하여 가중치와 곱하여 **종합점수**를 계산
+- 하나의 요인이 여러가지 결과(Y)에 영향을 줄 수 있으므로 Y에 대한 영향도를 종합하여 중요 인자를 선정
+
+::: {.callout-tip title="X-Y Matrix 활용 팁" collapse="true"}
+X-Y Matrix는 Multiple x, Multiple Y에 대해 동시에 상호 관련성 및 중요도를 점수화하는 용도로 사용할 수 있습니다. 즉, Project Y가 2개 이상이거나 Side Effect를 함께 고려하여 중요 x인자를 선정하기 위한 용도로 사용하면 유용합니다.
+:::
+
+### RPN (Risk Priority Number)
+
+![슬라이드 10](../images/ch05/slide_10.png){width=100%}
+
+경험과 지식에 기반하여 가인자를 선정할 때, 중요하다고 생각하는 것을 미리 정해놓고 점수화하지 말고, 관련 전문가들이 모여 충분한 토의 후 결정하는 것이 바람직합니다.
+
+- **점수를 부여하는 것도 의미가 있지만** 그 점수 부여의 근거가 될 수 있는 **경험과 지식의 교환이 핵심**
+- Total 점수가 높은 항목을 우선 검정 대상(가인자)으로 선정
+
+::: {.callout-note title="RPN이란?" collapse="true"}
+RPN(Risk Priority Number)은 FMEA 전개 시 고장모드별 중요도의 우선순위를 선정하기 위한 용도로, 각 항목에 대해 **SOD(Severity, Opportunity, Detection)** 관점에서 점수화하는 방법입니다.
+:::
+
+---
+
+## 3. 치명인자(Vital Few) 선정 - 데이터 수집 및 그래프 분석 {#vital-few-graph}
+
+### 데이터 수집
+
+![슬라이드 11](../images/ch05/slide_11.png){width=100%}
+
+선정된 인자들이 Project Y에 통계적으로 영향을 주는지 확인하기 위한 Data를 수집하고, 필요시 전처리 과정을 통해 유용한 정보로의 전환이 필요할 수도 있습니다.
+
+::: {.callout-warning}
+Data 수집 시는 가능한 **모든 상황을 기록**한다. 생각지도 못한 요인이 치명인자가 될 수 있습니다.
+:::
+
+### 그래프 분석 개요
+
+![슬라이드 12](../images/ch05/slide_12.png){width=100%}
+
+수집된 Data를 기반으로 Project Y에 영향을 주는 인자가 맞는지를 그래프를 통해 확인합니다.
+
+![슬라이드 13](../images/ch05/slide_13.png){width=100%}
+
+::: {.callout-important title="그래프 분석의 중요성"}
+**"그래프는 항상 분석의 1단계이며, 당신이 그래프로 본 것을 통계량으로 확인하라!"**
+
+| 분석 목적 | 주로 사용하는 그래프 |
+|-----------|---------------------|
+| **분포 형태** 확인 | Histogram(히스토그램) |
+| **관계** 확인 | Scatterplot(산점도), Matrix Plot(산점도행렬) |
+| **시간에 따른 변화** 확인 | Time Series Plot(시계열도) |
+| **집단간 비교** | Boxplot(상자그림) |
+:::
+
+### 데이터 형태에 따른 그래프 선택
+
+![슬라이드 14](../images/ch05/slide_14.png){width=100%}
+
+데이터의 형태/속성에 따라 적절한 그래프를 활용합니다. Y의 데이터는 가능한 한 **연속형(Continuous)**으로 수집되어야 합니다.
+
+| 분석 유형 | Y: 연속형 | Y: 이산형 |
+|-----------|-----------|-----------|
+| **분포 확인** | Histogram, Probability Plot, Boxplot | Bar Chart, Pie Chart |
+| **관계 확인 (x: 연속형)** | Scatter Plot, Marginal Plot, Matrix Plot | - |
+| **비교 (x: 이산형)** | Boxplot-With Groups, Individual Value Plot | Bar Chart-Cluster |
+
+### 그래프 분석 예시
+
+![슬라이드 15](../images/ch05/slide_15.png){width=100%}
+
+Camera Module 변경에 따른 해상도를 파악하기 위해 Module 변경 전/후의 데이터를 수집한 예시입니다. IR Filter Type, Filter Size, Image Sensor Type, Auto Focus 기능 구동여부가 영향을 줄 것으로 판단되어, 이에 대한 데이터도 함께 기록하였습니다.
+
+### Histogram
+
+![슬라이드 16](../images/ch05/slide_16.png){width=100%}
+
+Camera Module 변경 전 해상도의 분포를 Histogram으로 확인한 결과, 오른쪽 긴 꼬리 분포로 정규성을 따른다고 하기 어렵습니다.
+
+### Box Plot
+
+![슬라이드 17](../images/ch05/slide_17.png){width=100%}
+
+데이터를 작은 값부터 크기 순으로 나열하고 전체 데이터에서 특정 비율에 해당하는 값들을 Box 형태로 나타낸 그래프입니다.
+
+::: {.callout-tip title="Box Plot의 구성요소" collapse="true"}
+**5개의 통계량**: 최대값, 최소값, 중앙값(Q2), 1사분위수(Q1), 3사분위수(Q3)
+
+- **IQR (Inter Quartile Range)** = Q3 - Q1
+- **이상치(Outliers)**: (Q1 - 1.5 x IQR) 미만 또는 (Q3 + 1.5 x IQR) 초과인 값
+- 자료 분포의 비대칭도를 파악할 수 있음
+- 특히 **그룹 간의 분포를 비교**하는 데 효과적
+:::
+
+![슬라이드 18](../images/ch05/slide_18.png){width=100%}
+
+Camera Module 변경 전의 해상도 중에서 일반적이지 않은 Data를 Box plot으로 확인합니다.
+
+### Boxplot - With Groups
+
+![슬라이드 19](../images/ch05/slide_19.png){width=100%}
+
+Module 변경 후 IR Filter Type과 Auto Focus 기능 구동 여부에 따른 해상도 변화를 확인한 결과:
+
+- Auto Focus 기능 구동 여부에 따라 A-type은 평균의 차이가 있어 보이고, B type의 경우는 평균 차이가 거의 없어 보임
+- Auto Focus 기능 On에서 Off로 변경 시 두 가지 Type 모두 산포가 증가
+- A Type의 경우 Auto Focus 기능을 구동할 때 특이하게 해상도가 높거나 낮은 샘플이 존재
+
+### Graphical Summary
+
+![슬라이드 20](../images/ch05/slide_20.png){width=100%}
+
+그래프와 함께 통계량 정보를 요약 제공합니다: 정규성 검정, 평균, 표준편차, 사분위수, 각종 CI(신뢰구간) 등
+
+### 산점도 (Scatterplot)
+
+![슬라이드 21](../images/ch05/slide_21.png){width=100%}
+
+만족도와 Filter Size 간의 관계를 확인한 결과, 몇 개의 Data를 제외하고 선형 관계가 있으며, Filter Size가 클수록 만족도가 높습니다. 다만 Filter Size가 비슷해도 만족도에는 산포가 존재합니다.
+
+![슬라이드 22](../images/ch05/slide_22.png){width=100%}
+
+Auto Focus 기능의 구동 여부를 구분하여 산점도를 그린 결과, Auto Focus 기능을 구동하지 않은 샘플이 구동한 샘플에 비해 해상도가 높은 편인 것 같습니다.
+
+### Marginal Plot
+
+![슬라이드 23](../images/ch05/slide_23.png){width=100%}
+
+산점도와 함께 각 변수의 분포(Histogram, Boxplot, Dotplot)를 함께 표시합니다. Filter Size는 전체 범위에서 거의 균일해 보이지만, 만족도는 낮은 곳이 많고 높은 곳이 적어 보입니다.
+
+### Matrix Plot
+
+![슬라이드 24](../images/ch05/slide_24.png){width=100%}
+
+다수의 연속형 변수 간 관계를 한눈에 고찰할 수 있습니다. Module 변경 전/후의 해상도는 Filter Size, 만족도와 특별한 관계가 없는 것 같습니다.
+
+### Individual Value Plot
+
+![슬라이드 25](../images/ch05/slide_25.png){width=100%}
+
+Module 변경 후 IR Filter Type과 Auto Focus 기능 구동 여부에 따른 해상도의 개별 값들의 분포를 확인할 수 있습니다.
+
+---
+
+## 주요 도구 바로가기
 
 | 도구 | 목적 | 바로가기 |
 |------|------|---------|
-| 가설검정 | 통계적 차이 검정 | [가설검정 →](hypothesis.qmd) |
-| ANOVA | 다집단 평균 비교 | [ANOVA →](anova.qmd) |
-| 회귀분석 | 변수 간 관계 모델링 | [회귀분석 →](regression.qmd) |
+| 가설검정 | 통계적 차이 검정 (t-Test, Proportion, Chi-Square) | [가설검정 →](hypothesis.qmd) |
+| ANOVA | 다집단 평균 비교 (One-Way ANOVA, GLM) | [ANOVA →](anova.qmd) |
+| 회귀분석 | 변수 간 관계 모델링 (상관분석, 단순/다중회귀) | [회귀분석 →](regression.qmd) |
 
-## 통계적 추론의 흐름
-
-```
-데이터 시각화 (분포, 산점도)
-    ↓
-정규성 검정 (Anderson-Darling)
-    ↓
-등분산 검정 (Levene)
-    ↓
-적절한 가설검정 선택
-    ↓
-p-value 해석 및 결론
-```
-
-## 가설검정 도구 선택 가이드
+### 가설검정 도구 선택 가이드
 
 ```
 비교 대상
-├── 평균 비교
+├── 평균 비교 (연속형)
 │   ├── 1그룹 vs 목표값 → 1-Sample t Test
 │   ├── 2그룹 비교 → 2-Sample t Test
 │   ├── 짝비교 → Paired t Test
-│   └── 3그룹 이상 → One-Way ANOVA
+│   └── 3그룹 이상 → One-Way ANOVA / GLM
 ├── 분산 비교
-│   └── 등분산 검정 (Levene, Bartlett)
-└── 범주형 데이터
-    └── 카이제곱 검정
+│   └── 등분산 검정 (2-Variance, Equal Variance)
+├── 범주형 데이터 (이산형)
+│   ├── 비율 → 1-Proportion / 2-Proportion
+│   └── 독립성 → Chi-square Test
+└── 관계 분석 (연속형)
+    ├── 상관관계 → Correlation
+    └── 인과관계 → Regression
 ```
 
 ::: {.callout-warning title="p-value 오해와 올바른 해석"}

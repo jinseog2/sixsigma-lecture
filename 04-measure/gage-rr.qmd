@@ -2,73 +2,614 @@
 title: "Gage R&R - 측정시스템 분석"
 ---
 
-## Gage R&R이란?
+## 1. 측정 System 검증 {#overview}
 
-**Gage Repeatability & Reproducibility (R&R)** 은 측정시스템의 변동을 정량화하는 분석입니다.
+### Overview
+
+![슬라이드 5](../images/ch04/slide_05.png){width=100%}
+
+측정이란 **"어떤 대상의 특정 성질을 나타내기 위해 그 대상에 수치를 부여하는 작업"**으로, 수치를 부여하는 절차를 **측정 프로세스**, 부여된 수치를 **측정치(또는 측정값)**라 합니다. 그리고 측정치를 얻기 위한 장치의 총칭을 **계측기**라 하며, 작동법/절차/Software 등 측정치를 얻기 위해 사용되는 전체를 **"측정 System"**이라 합니다.
 
 $$\text{측정 총 변동} = \text{부품 변동} + \text{측정시스템 변동(Gage R\&R)}$$
 
 $$\text{Gage R\&R} = \text{반복성(Repeatability)} + \text{재현성(Reproducibility)}$$
 
-## 변동 구성 요소
+::: {.callout-tip title="타당도(Validity)란?" collapse="true"}
+측정하려고 하는 값을 제대로 측정하는가? 또는 측정이 적합한가?를 의미합니다.
 
-| 구성요소 | 영문 | 설명 |
-|---------|------|------|
-| 반복성 | Repeatability | 동일 측정자, 동일 부품 반복 측정 변동 (장비 변동) |
-| 재현성 | Reproducibility | 다른 측정자 간 변동 (측정자 변동) |
-| 부품 변동 | Part Variation | 부품 간 실제 차이 |
-
-## 판정 기준 (%R&R)
-
-| %R&R | 판정 |
-|------|------|
-| < 10% | 우수 (Excellent) |
-| 10% ~ 30% | 조건부 수용 (Marginal) |
-| > 30% | 부적합 (Unacceptable) |
-
-::: {.callout-tip title="%R&R 판정기준의 의미" collapse="true"}
-**핵심 질문**: 전체 측정 변동 중 측정시스템 자체의 변동이 얼마나 되는가?
-
-- **%R&R = 5%**: 측정 변동의 5%만 측정기 때문 → 신뢰할 수 있음
-- **%R&R = 35%**: 측정 변동의 35%가 측정기 때문 → 측정기 개선 필요
-
-**비유**: 체중계가 매번 ±3kg 오차가 있다면, 다이어트 효과(1kg 감량)를 측정할 수 없습니다.
+예를 들어 사람의 키를 측정하는데 저울을 이용한다면 제대로 측정값을 얻기 어렵지만, 몸무게를 측정하기 위해 저울을 사용한다면 적합한 측정을 할 수 있으므로 타당도는 확보되었다고 볼 수 있습니다.
 :::
-
-## Type 1 Gage Study
-
-단일 측정자, 기준값(Reference)이 있는 경우의 기본 능력 평가
-
-**지표**:
-- **Cg**: 게이지 능력 지수 (≥ 1.33 권장)
-- **Cgk**: 편의(Bias) 포함 능력 지수 (≥ 1.33 권장)
-- **편의(Bias)**: 측정값 평균 - 기준값
-
-## Type 2 Gage Study - Crossed
-
-가장 일반적인 Gage R&R. 여러 측정자가 여러 부품을 모두 측정합니다.
-
-**실험 설계**:
-- **부품 수**: 보통 10개
-- **측정자 수**: 보통 3명
-- **반복 측정 수**: 보통 2~3회
-
-## Type 2 Gage Study - Nested
-
-측정자가 각자 다른 부품 세트를 측정하는 경우 (부품 파괴 검사 등)
-
-## 이산형 Gage R&R (Attribute Agreement Analysis)
-
-합격/불합격 같은 이산형 판정의 일관성 평가
-
-**지표**:
-- 측정자 내 일치율 (Within Appraiser Agreement)
-- 측정자 간 일치율 (Between Appraisers Agreement)
-- 기준 대비 일치율 (Each Appraiser vs Standard)
 
 ---
 
-## 실습: Gage R&R 분석 도구
+## 정확도(Accuracy) 검증 {#accuracy}
+
+![슬라이드 6](../images/ch04/slide_06.png){width=100%}
+
+측정의 타당도가 확보되었다면 현상을 일정한 형식의 숫자로 전환하는 측정장비(Gage)가 충분히 정확한지 확인해야 합니다. 이를 **정확도 검증**이라 하고, **편의, 선형성, 안정성**의 특징으로 구분하여 확인합니다.
+
+| 항목 | 정의 | 검증 방법 |
+|------|------|----------|
+| **편의(Bias)** | 기준값(참값)과 측정값들의 평균과의 차이 | 기준값이 명확한 단일 부품을 1명이 반복 측정하여 비교 |
+| **선형성(Linearity)** | Gage Range 또는 Spec 전반에서의 편의 | 최소 3곳 이상 위치를 선택하여 반복 측정, 기울기의 선형성 확인 |
+| **안정성(Stability)** | 서로 다른 시기에서 측정된 평균값들의 차이 | 표준 부품을 시간에 따라 반복 측정하여 관리상태 확인 |
+
+::: {.callout-note title="실무 참고"}
+실무적으로 정확도는 교정 담당 조직에서 수행해야 할 업무이고, Six Sigma 과제에서는 **정밀도** 항목에 대해서만 수행하면 됩니다. 다만, 측정에 사용하고자 하는 계측기나 측정시스템에 대하여 검정/교정 실시 여부를 확인해 볼 필요는 있습니다 (정확도가 확보된 전제하에 정밀도 확인).
+:::
+
+### 편의(Bias) 검증
+
+![슬라이드 7](../images/ch04/slide_07.png){width=100%}
+
+**편의(Bias)**: 기준값(참값)과 측정된 값의 평균과의 차이
+
+$$\text{Bias} = \bar{X}_{측정값} - \text{기준값(참값)}$$
+
+**검증 방법:**
+
+- 기준값이 명확히 정의된 단일부품을 1명의 평가자가 반복(최소 16회 이상) 측정
+- 기준값 결정: 상위 계측장비 또는 숙련된 측정자가 여러 번 반복 측정 후 평균 사용
+
+**판정 기준:**
+
+| 방법 | 기준 |
+|------|------|
+| 간이법 | %Bias(PV) < 5% 또는 %Bias(T) < 5% |
+| 가설검정법 (1 Sample t Test) | $H_0$: Bias = 0, p-value > $\alpha$(0.05)이면 편의가 없다고 판단 |
+
+### 선형성(Linearity) 검증
+
+![슬라이드 8](../images/ch04/slide_08.png){width=100%}
+
+**선형성**: Gage Range 또는 Specification Limit 전반에서의 편의
+
+**검증 방법:**
+
+- 표준 시료를 평가자 1명이 측정
+- 제품의 일반적인 변동 범위 중 최소 3곳(low, middle, high)을 선택하여 반복측정(12~16회)
+- 편의에 대한 회귀분석에서 기울기가 통계적으로 유의하지 않음을 검증
+
+**판정 기준:**
+
+| 방법 | 기준 |
+|------|------|
+| 간이법 | %Linearity < 5% |
+| 회귀분석법 | $H_0$: slope = 0, p-value > $\alpha$(0.05)이면 선형성 양호 |
+
+### 안정성(Stability) 검증
+
+![슬라이드 9](../images/ch04/slide_09.png){width=100%}
+
+**안정성**: 서로 다른 시간 또는 장소에서 측정된 평균값들의 차이
+
+**검증 방법:**
+
+- 추적 가능한 표준 부품을 1~2개 선정
+- 해당 부품을 최소한 하루 1번 20~30일 동안 측정 (최소 관측값 20~30개)
+- X-Bar-R Chart 또는 I-MR 관리도 작성
+
+**판정 기준:** 관리도에서 이상점/패턴이 존재하지 않아야 합니다.
+
+---
+
+## 정밀도(Precision) 검증 - Gage R&R {#precision}
+
+![슬라이드 10](../images/ch04/slide_10.png){width=100%}
+
+계측기의 정확도가 검증된 상태에서 수행하며, **Gage R&R**이라 합니다.
+
+| 구성요소 | 영문 | 설명 |
+|---------|------|------|
+| **반복성** | Repeatability | 한 명의 측정자가 동일 부품을 동일 계측기로 비교적 단시간에 여러 번 측정 시 발생하는 측정 오차 (Equipment Variance) |
+| **재현성** | Reproducibility | 동일 부품을 동일 계측기로 여러 명의 측정자가 측정할 때 측정자들 간의 측정 오차 (Appraiser Variance) |
+
+### Gage R&R 방법 체계
+
+![슬라이드 11](../images/ch04/slide_11.png){width=100%}
+
+```
+측정 변동
+├── 정확도(Accuracy) ─── 전제조건 확인사항
+│   ├── 편의(Bias)        → 1 Sample t
+│   ├── 선형성(Linearity) → Gage Linearity and Bias Study, 회귀분석
+│   └── 안정성(Stability) → Control Chart (Xbar-R, IMR)
+│
+└── 정밀도(Precision) ─── Gage R&R
+    ├── 반복성(Repeatability)
+    └── 재현성(Reproducibility)
+```
+
+### 계측기의 분해능
+
+![슬라이드 12](../images/ch04/slide_12.png){width=100%}
+
+::: {.callout-tip title="분해능(Resolution) 판정 기준" collapse="true"}
+계측기의 분해능은 아날로그 계측기의 경우 최소 눈금 단위, 디지털 계측기는 측정 가능한 최소 자리수를 뜻합니다.
+
+$$\%RE = \frac{RE}{T} \times 100 = \frac{\text{계측기 분해능}}{USL - LSL} \times 100$$
+
+**판정 기준:**
+
+- ISO 22514-7, GM, Bosch, VDA 5: **5% 이하**
+- AIAG MSA 4th Edition: **10% 이하**
+- BMW: **2% 이하**
+
+**사례:** 분해능 0.01mm인 디지털 버니어 캘리퍼스로 규격 50±0.2mm인 제품 측정 시:
+$\%RE = 0.01 / 0.4 \times 100 = 2.5\%$ → 합격
+:::
+
+---
+
+## Type 1 Gage Study {#type1}
+
+![슬라이드 13](../images/ch04/slide_13.png){width=100%}
+
+측정 System의 재현성을 볼 필요가 없거나 재현성은 문제가 없을 경우에 사용합니다. 측정기의 **반복성과 편의** 여부만 확인할 때 사용합니다.
+
+::: {.callout-note title="Digital 측정 장비의 경우"}
+Digital 측정 장비와 같이 측정자의 변경이 측정값에 영향을 미치는 요소가 없고, Type 1 Gage Study를 만족한다면 Gage의 R&R은 만족한다(측정 데이터를 신뢰할 수 있다)고 볼 수 있습니다.
+:::
+
+**방법:**
+
+- **표본 선택**: 표준 값이 알려져 있고 가장 대표적인 표본 1개 선택
+- **측정자**: 일상적인 측정 업무를 진행하는 사람 중 1명 선택
+- **데이터 수집**: 표본을 반복적으로 25~30번 측정 (측정자는 표준 값을 알 수 없어야 하고, 동일 절차 유지)
+
+**평가 기준:**
+
+| 지표 | 기준 | 의미 |
+|------|------|------|
+| **Bias 검정** p-value | ≥ 0.05 | 편의가 존재하지 않음 |
+| **Cg** (Gage 능력지수) | > 1.33 | 반복성 변동이 적음 |
+| **%Var(Repeatability)** | < 15% | 반복성이 양호 |
+| **Cgk** | > 1.33 | 반복성과 편의 변동이 적음 |
+| **%Var(Repeatability and Bias)** | < 15% | 반복성+편의 양호 |
+
+### Gage 능력지수 계산
+
+![슬라이드 14](../images/ch04/slide_14.png){width=100%}
+
+### Type 1 Study 요약
+
+![슬라이드 15](../images/ch04/slide_15.png){width=100%}
+
+::: {.callout-tip title="단측 규격인 경우 판정기준" collapse="true"}
+- **USL만 있는 경우**: 모든 측정 데이터가 $USL - 4 \times s$ 선 이하에 타점되면 합격 판정
+- **LSL만 있는 경우**: 모든 측정 데이터가 $LSL + 4 \times s$ 선 이상에 타점되면 합격 판정
+:::
+
+### 실습: Type 1 Gage Study (양측 규격)
+
+![슬라이드 16](../images/ch04/slide_16.png){width=100%}
+
+**사례:** OO 제품의 "화면전환 속도(Flicking 속도)"에 대한 Type 1 Gage Study
+
+- 디지털 장비의 알려진 오차 허용 한계: ±0.20
+- 측정자: 개발에 참여한 연구원 1명
+- 표본: Flicking 속도 = 50.0 (fps) 표준 시료 1개
+- 1명의 측정자가 25회 이상 반복하여 측정
+
+![슬라이드 17](../images/ch04/slide_17.png){width=100%}
+
+**Minitab 경로:** Stat > Quality Tools > Gage Study > Type 1 Gage Study
+
+![슬라이드 18](../images/ch04/slide_18.png){width=100%}
+
+**결과 해석:**
+
+- 유의수준 5%하에서 편의(Bias)가 있다고 할 수 없음 (p-value ≥ 0.05)
+- Cg, Cgk가 매우 작으므로 현재 측정 System은 개선할 필요가 있음
+- %Var(Repeatability), %Var(Repeatability and Bias)가 매우 크므로 개선 필요
+
+### Type 1 Gage Study (편측 규격)
+
+![슬라이드 19](../images/ch04/slide_19.png){width=100%}
+
+동일한 사례에서 스펙만 LSL 49.2로 할 경우의 결과입니다.
+
+---
+
+## Type 2 Gage Study {#type2}
+
+### 측정 형태와 데이터 설계 방법
+
+![슬라이드 20](../images/ch04/slide_20.png){width=100%}
+
+| 구분 | Crossed (교차) | Nested (지분) |
+|------|---------------|--------------|
+| **적용** | 동일한 부품을 서로 다른 평가자가 반복 측정할 수 있는 경우 | 동일한 부품을 1회만 측정 가능한 경우 (파괴검사 등) |
+| **분석 방법** | ANOVA 또는 Xbar-R | ANOVA |
+| **교호작용** | 확인 가능 | 확인 불가능 |
+
+### Gage R&R 실행 절차
+
+![슬라이드 21](../images/ch04/slide_21.png){width=100%}
+
+| Step | 활동 | 주의 사항 |
+|------|------|----------|
+| **Step 1** | 측정 대상 및 계측기 선정 | 분해능: 제품 Spec의 10% 이하 |
+| **Step 2** | 측정시료 및 측정자 선정 | 시료: Spec 전 범위에서 등간격 10개 추천, 측정자: 3명 이상 권장 |
+| **Step 3** | 측정 실시 | Random Trial, Blind Test, Data Resume |
+| **Step 4** | 측정 결과 분석 (Gage R&R) | Part P < 0.05, 측정자 P > 0.05, %SV ≤ 10%, NDC ≥ 5 |
+| **Step 5** | 부적합시 개선 및 재검증 | 원인 파악 후 합리적 Plan 수립 |
+
+::: {.callout-warning title="시료 선정 시 주의사항"}
+- Spec의 일부 구간 또는 Spec보다 넓은 구간에서 시료 선정 시 Gage 변동의 기여도가 **왜곡**됩니다
+- 측정자가 측정에 미숙할 경우 측정자 영향이 Gage 변동으로 포함되어 결과 왜곡
+- 단측 규격인 경우 "Target과 Spec을 2배 정도 포함하는 범위" 또는 "현 수준의 공정산포를 포함하는 범위"에서 시료 선정
+:::
+
+### 시료 선정 오류시 문제점
+
+![슬라이드 22](../images/ch04/slide_22.png){width=100%}
+
+$$\sigma^2_{total} = \sigma^2_{R\&R} + \sigma^2_{Part}$$
+
+| 문제 상황 | 결과 | 판단 오류 |
+|----------|------|----------|
+| **너무 좁은 구간** 시료 선정 | Part 변동↓ → 전체 변동↓ → %R&R↑ | Gage에 문제 없는데 있는 것처럼 판단 |
+| **너무 넓은 구간** 시료 선정 | Part 변동↑ → 전체 변동↑ → %R&R↓ | Gage에 문제 있는데 없는 것처럼 판단 |
+
+### Gage R&R 판정 기준
+
+![슬라이드 23](../images/ch04/slide_23.png){width=100%}
+
+| 기준 | 판정 지표 | 합격 기준 | 용도 |
+|------|----------|----------|------|
+| **%Study Var** | $\frac{6\sigma_{R\&R}}{6\sigma_{total}} \times 100$ | ≤ 10% | 공정변동 확인 |
+| **%Process** | $\frac{6\sigma_{R\&R}}{6\sigma_{historical}} \times 100$ | ≤ 10% | 경험적 변동 대비 |
+| **%Tolerance** | $\frac{6\sigma_{R\&R}}{USL - LSL} \times 100$ | ≤ 10% | Spec 합/부 판정 |
+| **NDC** | $1.414 \times \frac{\sigma_{Part}}{\sigma_{R\&R}}$ | ≥ 5 | 측정시스템 구별력 |
+
+::: {.callout-tip title="NDC (Number of Distinct Categories)" collapse="true"}
+측정시스템이 구별할 수 있는 구별 범주의 수입니다.
+
+- NDC = 5: 전체 측정 결과의 범위를 5개의 범주로 구분 가능
+- NDC = 1: 합/부 판정만 가능
+- 공정관리에 사용하기 위해서는 **5 이상**이 되어야 변동을 제대로 구분하여 판단할 수 있는 능력을 가진 시스템
+
+**연구변동(Study Variation):** Gage변동의 허용수준. 6 = ±3σ 수준(99.73%). 4(95.45%) 또는 5.15(99.00%) 등으로 변경 가능하며, 큰 숫자일수록 까다로운 기준이 됩니다.
+:::
+
+![슬라이드 24](../images/ch04/slide_24.png){width=100%}
+
+| %R&R | 판정 | 비고 |
+|------|------|------|
+| **< 10%** | 우수 (Excellent) | 사용 가능 |
+| **10% ~ 30%** | 조건부 수용 (Marginal) | 의사결정시 측정 변동 고려 필요 |
+| **> 30%** | 부적합 (Unacceptable) | 측정시스템 개선 필요 |
+
+::: {.callout-warning}
+조건부 Accept인 상황에서 아무런 조치없이 사용해야만 하는 경우, "무작정 측정값을 믿고 사용하면 된다"가 아니라, Data를 활용한 의사결정시 **측정값에 어느 정도는 측정의 변동이 포함**되어 있다는 점을 감안하고 판단하여야 합니다.
+:::
+
+### 판정 기준 미충족시 대응 방법
+
+![슬라이드 25](../images/ch04/slide_25.png){width=100%}
+
+1. 시료수, 시료 선정 방법, 측정 방법/표준 준수 여부, 분해능, 데이터 기입 오류, Blind 측정 등 확인
+2. **%R&R 확인**하여 반복성, 재현성 중 무엇이 문제인지 파악
+   - **재현성 문제**: 측정 방법 표준화, 측정자 교육 실시
+   - **반복성 문제**: 계측기 적합성 확인, 검교정 실시, 충분한 분해능(10% 이하) 확보
+3. 점검/조치 후 **Gage R&R 재실시**하여 10% 이하이면 사용
+4. 지속적으로 10% 이상인 경우 → 다른 계측기로 교체, 현실적으로 불가능하면 조건부 Accept(10%~30%)
+
+### 조건부 Accept의 의미
+
+![슬라이드 26](../images/ch04/slide_26.png){width=100%}
+
+::: {.callout-tip title="조건부 Accept 대응 방법" collapse="true"}
+Gage R&R 결과가 20%로 조건부 Accept인 경우, 부가적인 활동이 필요합니다:
+
+**방법 1) 평균치 사용**: 반복 측정하여 대표값으로 평균치를 사용
+
+$$n \geq \left(\frac{Gage\;R\&R}{10\%}\right)^2$$
+
+**방법 2) Zone 운영**: 게이지의 표준편차를 고려하여 절대 양품 Zone, 절대 불량품 Zone, 정밀 측정 Zone을 운영
+:::
+
+---
+
+## Type 2 Gage Study 실습 - Crossed {#type2-crossed}
+
+### 실습 데이터
+
+![슬라이드 27](../images/ch04/slide_27.png){width=100%}
+
+**실습 조건:**
+
+- Parts: 규격 한계(16.5±0.8 mm)를 10개의 등간격으로 구분, 각 구간에서 1개씩 추출
+- Appraiser: 숙련도가 높은 3명 선정
+- Random Trial 및 Blind Test 시행
+- Historical Sigma = 0.35(mm)
+
+### Worksheet 만들기
+
+![슬라이드 28](../images/ch04/slide_28.png){width=100%}
+
+**Minitab 경로:** Stat > Quality Tools > Gage Study > Create Gage R&R Study Worksheet
+
+### Minitab 분석 설정
+
+![슬라이드 29](../images/ch04/slide_29.png){width=100%}
+
+**Minitab 경로:** Stat > Quality Tools > Gage Study > Gage R&R Study(Crossed)
+
+::: {.callout-tip title="ANOVA vs. Xbar-R" collapse="true"}
+두 방법의 차이는 각 변동 원인별 표준편차 계산방법이 다르고, 기준으로 제시된 표본 크기와 반복수를 고려하는 경우 **ANOVA 방법을 표준으로 사용**합니다. Xbar-R 방법은 교호작용을 확인하지 못합니다.
+:::
+
+### (1) ANOVA Table - 변동 원인별 유의성 검정
+
+![슬라이드 30](../images/ch04/slide_30.png){width=100%}
+
+| Source | DF | SS | MS | F | P | 해석 |
+|--------|---:|---:|---:|---:|---:|------|
+| Part | 9 | 5.39914 | 0.599905 | 93.81 | **0.000** | Part간 차이 유의 (정상) |
+| Appraiser | 2 | 0.02166 | 0.010832 | 1.69 | **0.212** | 측정자간 차이 없음 (양호) |
+| Part*Appraiser | 18 | 0.11510 | 0.006395 | 7.39 | **0.000** | 교호작용 유의 (개선 필요) |
+| Repeatability | 30 | 0.02595 | 0.000865 | | | |
+
+::: {.callout-note title="ANOVA 결과 해석 포인트"}
+- **Part** P값 0.000: 서로 다른 Part를 추출했으므로 Part간 차이가 있는 것이 **정상**
+- **측정자** P값 0.212: 측정자간 평균의 차이가 적을수록 측정시스템이 **안정적** (P값이 1.0에 근접할수록 좋음)
+- **Part*측정자 교호작용** P값 0.000: 특정 Part를 측정할 때 측정자에 따라 다르게 측정 → 측정 작업 표준 문제, 측정자간 방법 차이, 숙련도 차이 등 의심
+:::
+
+### (2) Variance Components - 변동 원인별 기여도
+
+![슬라이드 31](../images/ch04/slide_31.png){width=100%}
+
+| Source | VarComp | %Contribution |
+|--------|--------:|--------------:|
+| **Total Gage R&R** | **0.003852** | **3.75%** |
+| &nbsp;&nbsp;Repeatability | 0.000865 | 0.84% |
+| &nbsp;&nbsp;Reproducibility | 0.002987 | 2.91% |
+| &nbsp;&nbsp;&nbsp;&nbsp;Appraiser | 0.000222 | 0.22% |
+| &nbsp;&nbsp;&nbsp;&nbsp;Appraiser*Part | 0.002765 | 2.69% |
+| Part-To-Part | 0.098918 | 96.25% |
+| **Total Variation** | **0.102770** | **100.00%** |
+
+::: {.callout-tip title="%Contribution과 %SV의 관계" collapse="true"}
+- **%Contribution** 계산에는 **분산($s^2$)**이 사용
+- **%SV** 계산에는 **표준편차($s$)**가 사용
+- %SV 판정기준 10% → 표준편차 기준 0.1 → 제곱하면 0.01(1%)
+- 따라서 **%Contribution 값이 1.0% 이하**가 되어야 %SV 값이 10% 이하가 됩니다
+
+관계식: ② + ③ = ①, ④ + ⑤ = ③, ① + ⑥ = ⑦
+:::
+
+### (3) Gage R&R Characteristics - Gage 특성 고찰
+
+![슬라이드 32](../images/ch04/slide_32.png){width=100%}
+
+| Source | StdDev | Study Var (6×SD) | %SV | %Tolerance | %Process |
+|--------|-------:|------------------:|----:|-----------:|---------:|
+| **Total Gage R&R** | 0.0621 | 0.3724 | **19.36%** | **23.27%** | **17.73%** |
+| Repeatability | 0.0294 | 0.1765 | 9.17% | 11.03% | 8.40% |
+| Reproducibility | 0.0547 | 0.3279 | 17.05% | 20.49% | 15.61% |
+| Part-To-Part | 0.3145 | 1.8871 | 98.11% | 117.94% | 89.86% |
+
+**NDC(Number of Distinct Categories) = 7** (기준 ≥ 5 만족)
+
+**결론:** 현재의 Gage는 재현성 측면에서 개선방안을 찾아야 합니다. 개선이 현실적으로 어렵다면 조건부이므로 사용은 하되, 의사결정시 측정의 변동이 영향을 미칠 수 있음을 고려하여야 합니다.
+
+### 시료 선정 범위와 시료수에 따른 영향
+
+![슬라이드 33](../images/ch04/slide_33.png){width=100%}
+
+::: {.callout-warning title="시료 확보 문제"}
+Gage R&R 수행을 위한 시료 확보 문제(전체 Spec을 Cover, 권장 시료수)는 어느 제품에서나 쉽지 않은 것이 현실입니다. 가능하다면 의도적으로 Spec의 한계선까지 고려한 시료를 만들거나, 대용품을 사용하여 시료수를 늘려 보려는 노력이 필요합니다.
+:::
+
+### (4) Diagnostics with Graphs - 1
+
+![슬라이드 34](../images/ch04/slide_34.png){width=100%}
+
+기준에 만족하더라도 그래프를 통해 문제점 또는 추가 개선 가능성을 고찰해야 합니다.
+
+| 그래프 | 해석 |
+|--------|------|
+| **A: Components of Variation** | Gage R&R의 비중이 Part-to-Part에 비해 충분히 작아야 바람직 |
+| **B: R Chart** | 측정자의 측정 일관성과 반복성 확인, 모든 점이 관리한계선 내에 있어야 함 |
+| **C: Xbar Chart** | 측정자의 평균값들은 50% 이상이 관리한계선을 벗어나야 함 |
+| **D: By Part** | 각 Part별 측정값의 산포는 작아야 하고, 평균은 차이가 있는 것이 바람직 |
+| **E: By Appraiser** | 측정자별 평균의 연결선이 수평이면 바람직 |
+| **F: Interaction** | 각 Part에 대한 측정자의 평균값들이 차이가 있으면 교호작용 존재 |
+
+### (5) Diagnostics with Graphs - 2: Gage Run Charts
+
+![슬라이드 35](../images/ch04/slide_35.png){width=100%}
+
+**Minitab 경로:** Stat > Quality Tools > Gage Study > Gage Run Chart
+
+재현성과 반복성의 문제가 있을 경우 Run chart를 실행하여 문제가 되는 부품과 측정자를 확인합니다.
+
+- 각 측정자간 평균이 동일하면 재현성의 문제가 없음
+- 동일 부품에 대해 측정값이 동일하면 반복성에 문제가 없음
+
+### Gage Run Chart Case별 해석
+
+![슬라이드 36](../images/ch04/slide_36.png){width=100%}
+
+| Case | 반복성 | 재현성 | 설명 |
+|------|--------|--------|------|
+| Case 1 | OK | OK | 양호 |
+| Case 2 | NG | OK | 동일 부품의 반복 측정값 변동 큼 |
+| Case 3 | OK | NG | 측정자별 평균값 차이 큼 |
+
+---
+
+## Type 2 Gage Study - Nested {#type2-nested}
+
+![슬라이드 37](../images/ch04/slide_37.png){width=100%}
+
+**Nested 방법**은 각 시료에 대하여 반복 측정이 불가능한 경우에 사용하는 방법으로, 파괴 검사, 공정 중간에 설치되어 재측정이 불가능한 경우, Blind Test가 불가능한 경우 등에 적용합니다.
+
+| 구분 | Crossed | Nested |
+|------|---------|--------|
+| 부품 | 동일 부품을 모든 측정자가 측정 | 각 측정자가 다른 부품 세트 측정 |
+| 교호작용 | Operator × Parts 교호작용 확인 **가능** | 확인 **불가능** |
+| 예시 | 2명 × 6개 Part × 3회 반복 = 36회 측정 | 2명 × 6개 Lot × 3개 Part = 36개 Part 필요 |
+
+::: {.callout-warning title="Nested 적용 시 주의사항"}
+- 동일 Lot 또는 동일 Batch에서 짧은 시간에 연속 생산된 부품/제품은 거의 동일하여, 2개를 측정하지만 1개를 2회 반복 측정한 것과 차이가 극히 적을 것이라는 **전제**하에 적용합니다 (우연원인만 존재).
+- 만약 연속 생산이 되었더라도 "거의 동일하다"는 전제가 되지 못하는 경우에는 반복성에 대한 평가가 어렵고, 통계적 검증의 의미가 없습니다.
+:::
+
+### 실습: Nested Gage R&R
+
+![슬라이드 38](../images/ch04/slide_38.png){width=100%}
+
+파괴검사(destructive testing)에 의해 측정이 이루어지는 경우의 Gage R&R 분석. 15개의 배치로부터 각 2개의 시료를 표본으로 취하고, 한 배치 내에서는 시료들이 서로 동일하다고 가정합니다. 현업 담당 측정자 3명을 선발하여 실험 수행. (Tolerance: 6)
+
+![슬라이드 39](../images/ch04/slide_39.png){width=100%}
+
+**Minitab 경로:** Stat > Quality Tools > Gage Study > Gage R&R Study(Nested)
+
+### Nested 결과 해석
+
+![슬라이드 40](../images/ch04/slide_40.png){width=100%}
+
+- Part P값 0.257: 유의하지 않음 → Part가 너무 조밀한 범위에서 선정되었다고 볼 수 있음
+- Operator P값 0.995: 유의하지 않음 → 측정자간 측정값 평균의 차이가 거의 없으므로 정상
+- Gage R&R 기여율 82.57%: Part의 변동량보다 더 큼 → 동일 배치에서 2대를 취했으나 실제로는 측정값의 차이가 매우 큰 것으로 평가
+- %Study Variation, %Tolerance 모두 기준 미충족 → 사용 부적합
+- NDC < 5 → 사용 부적합
+
+### Nested 진단 그래프
+
+![슬라이드 41](../images/ch04/slide_41.png){width=100%}
+
+![슬라이드 42](../images/ch04/slide_42.png){width=100%}
+
+---
+
+## Type 3 Gage Study {#type3}
+
+![슬라이드 43](../images/ch04/slide_43.png){width=100%}
+
+**정의:** 측정작업자의 영향이 없는 경우, 즉 재현성은 없고 **반복성만 존재**할 때 사용하는 Gage Study (예: 자동 측정장비 사용)
+
+**방법:**
+
+- Type 2 Study에서 측정자(Operator)의 구분이 없어지면 Type 3 Study가 됨
+- 생산 공정에서 랜덤하게 p개의 부품을 선택하여 반복 r회를 측정
+- GM에서는 최소 5개 이상의 부품을 선정하고 $p \times r = 50$ 이상을 추천
+
+---
+
+## 이산형 Gage Study (Attribute Agreement Analysis) {#attribute}
+
+![슬라이드 44](../images/ch04/slide_44.png){width=100%}
+
+측정 척도가 Nominal(명목-양/불)인 경우의 측정시스템 분석입니다. 합격/불합격 같은 이산형 판정의 일관성을 평가합니다.
+
+**시료 선택 기준 (Hradeskey):**
+
+- 전체 중 1/2은 양품, 1/2은 불량품으로 선정
+- 양품과 불량품 중 각각 1/3 정도는 의사결정이 모호한 한계에서 선정
+
+**이산형 측정 시스템의 유형:**
+
+- **한계 계측기 (Go/No-Go Gage)**: 부품 치수가 규격 최대/최소 범위 내에 있는지 확인
+- **관능 검사 (Sensory Test)**: 인간의 감각(시각, 청각, 촉각, 후각, 미각)을 이용한 품질 검사/평가
+
+**이산형 Gage R&R 판정 기준:** 일치도 목표는 항상 100%이며, 현실적으로 **90% 이상**이면 Acceptable한 수준입니다.
+
+::: {.callout-note title="데이터 측정시 주의사항"}
+1. 평가자별로 각 시료와 반복 시료 순서를 **랜덤**하게 측정
+2. **Blind Test**: 평가자는 시료의 참값과 반복 시 사전 측정결과를 알 수 없어야 하며, 다른 평가자의 결과도 알 수 없어야 함
+3. 각 평가자는 **동일한 시간과 환경**에서 측정 실시
+4. 가능하다면, 각 평가자의 평가기준을 개별적으로 **문서화**
+:::
+
+### 이산형 Data 분석 개요
+
+![슬라이드 45](../images/ch04/slide_45.png){width=100%}
+
+| 평가 항목 | 정의 | 지표 |
+|----------|------|------|
+| **일관성** | 동일 시료를 반복 측정 시 같은 결과가 나와야 함 | - |
+| **정확성** | 참값과 비교하여 정확히 판정하는지 평가 | 유효성(E), 누락 확률 P(Miss), 허위 경보 확률 P(FA), 편의(Bias) |
+| **일치성** | 측정자들 간 측정 결과가 일치하는 정도 | Kappa 통계량, Kendall의 일치 계수 |
+
+### 이산형 측정시스템 정확성 평가
+
+![슬라이드 46](../images/ch04/slide_46.png){width=100%}
+
+::: {.callout-tip title="정확성 평가 지표" collapse="true"}
+**1) 유효성(Effectiveness):** 양/불 판정을 정확하게 할 수 있는 능력
+
+$$E = \frac{\text{정확히 판정한 표본의 수}}{\text{총 기회 수 (표본수 × 반복횟수)}}$$
+
+**2) 허위 경보 확률 P(FA):** 양품을 불량품으로 판정할 확률 (제1종 오류, $\alpha$ 위험)
+
+$$P(FA) = \frac{\text{불량으로 잘못 판정한 횟수}}{\text{양품 표본의 수 × 반복 횟수}}$$
+
+**3) 누락 확률 P(Miss):** 불량품을 양품으로 판정할 확률 (제2종 오류, $\beta$ 위험)
+
+$$P(Miss) = \frac{\text{양품으로 잘못 판정한 횟수}}{\text{불량 표본의 수 × 반복 횟수}}$$
+
+**4) 편의(Bias):** 평가자가 양품과 불량품을 분류하는 성향
+
+$$B = \frac{P(Miss)}{P(FA)}$$
+
+- B = 1: 편의 없음
+- B > 1: 불량으로 판정하는 경향
+- B < 1: 양품으로 판정하는 경향
+:::
+
+### Attribute Gage R&R Worksheet 생성
+
+![슬라이드 47](../images/ch04/slide_47.png){width=100%}
+
+**Minitab 경로:** Stat > Quality Tools > Create Attribute Agreement Analysis Worksheet
+
+![슬라이드 48](../images/ch04/slide_48.png){width=100%}
+
+### 실습: 명목척도 데이터 분석
+
+![슬라이드 49](../images/ch04/slide_49.png){width=100%}
+
+시료(부품) 15개(양품 8개, 불량품 7개)를 선정, 평가자 3명이 Go/No-go 게이지로 3회 반복 측정하여 양/불 판정을 기록합니다.
+
+![슬라이드 50](../images/ch04/slide_50.png){width=100%}
+
+**Minitab 경로:** Stat > Quality Tools > Attribute Agreement Analysis
+
+### 결과 해석
+
+![슬라이드 51](../images/ch04/slide_51.png){width=100%}
+
+**(1) 일관성 평가** 및 **(2) 평가자별 정확성 및 일관성 평가**
+
+- 정확성과 일관성이 부족한 경우, 표준 부재/준수 여부를 의심하고 재교육이 필요합니다.
+
+![슬라이드 52](../images/ch04/slide_52.png){width=100%}
+
+**(3) 전체 평가자의 일치성 평가** 및 **(4) 전체 평가자의 정확성 평가**
+
+- 평가자 3명이 모두 일치할 확률: 73.33%
+- 평가자 3명이 모두 정확히 평가할 확률: 73.33%
+
+::: {.callout-important title="종합 정리"}
+모든 평가자들이 측정의 일관성, 정확성, 일치성에 문제가 있고, 특히 평가자 B, C가 문제가 많음을 알 수 있습니다.
+
+- 측정 절차 및 방법을 검토해 볼 필요가 있음
+- 각 측정자의 측정 방법을 자세히 기술하여 비교해 보면 유용
+- 평가자 A, B는 "불량 판단 경향", 평가자 C는 "양품 판단 경향"
+- **표준 지침에 대한 재교육** 필요
+- 전체 일치성과 정확성이 73.33%로 매우 낮으므로 **표준에 대한 검토**도 필요
+:::
+
+![슬라이드 53](../images/ch04/slide_53.png){width=100%}
+
+---
+
+## 실습: Gage R&R 분석 도구 {#practice}
 
 ::: {.callout-note title="실습 도구 사용법"}
 1. 왼쪽 사이드바에서 분석 유형 선택 (Type 1 / Type 2 Crossed / Nested / 이산형)
@@ -80,13 +621,12 @@ $$\text{Gage R\&R} = \text{반복성(Repeatability)} + \text{재현성(Reproduci
 <div class="streamlit-embed">
 <iframe
   src="https://sixsigma-apps.streamlit.app/Gage_RR?embed=true"
-  height="700"
-  width="100%"
-  frameborder="0">
+  height="800"
+  style="width:100%;border:none;">
 </iframe>
 </div>
 
-::: {.callout-tip title="결과 해석 가이드"}
+::: {.callout-tip title="결과 해석 가이드" collapse="true"}
 **ANOVA 결과 테이블**: 각 변동 원인의 분산 성분과 기여율을 보여줍니다.
 
 **%Contribution**: 총 변동 대비 각 성분의 기여율 (분산 기준)
