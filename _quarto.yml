@@ -79,6 +79,8 @@ format:
     code-fold: true
     code-tools: true
     highlight-style: github
+    include-after-body:
+      - text: '<script src="toc-title.js"></script>'
 
 execute:
   freeze: auto
