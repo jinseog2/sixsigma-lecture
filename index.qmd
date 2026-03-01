@@ -1,11 +1,11 @@
 ---
-title: "6시그마 MBB 과정"
-subtitle: "DMAIC 기반 품질혁신 마스터 과정"
+title: "CTO부문 GB/BB과정"
+subtitle: "DMAIC 기반 품질혁신 과정"
 ---
 
 ## 과정 소개
 
-본 강의는 **6시그마 MBB(Master Black Belt)** 과정으로, DMAIC 방법론을 중심으로 통계적 품질 도구를 실무에 적용하는 능력을 기릅니다.
+본 강의는 **CTO부문 GB/BB(Green Belt/Black Belt)** 과정으로, DMAIC 방법론을 중심으로 통계적 품질 도구를 실무에 적용하는 능력을 기릅니다.
 
 ### 학습 목표
 

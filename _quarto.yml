@@ -3,13 +3,13 @@ project:
   output-dir: _site
 
 website:
-  title: "6시그마 MBB 강의"
+  title: "CTO부문 GB/BB과정"
   navbar:
     left:
       - href: index.qmd
         text: 홈
       - href: 01-intro.qmd
-        text: 소개
+        text: 1.Introduction
       - href: 02-6sigma-abc.qmd
         text: 6σABC
       - href: 03-define.qmd
@@ -26,12 +26,14 @@ website:
     style: "docked"
     search: true
     contents:
-      - section: "소개"
+      - section: "1.Introduction"
         contents:
           - href: 01-intro.qmd
             text: 과정 소개
           - href: 02-6sigma-abc.qmd
             text: 6σ ABC
+      - section: "Define"
+        contents:
           - href: 03-define.qmd
             text: Define
       - section: "Measure"
